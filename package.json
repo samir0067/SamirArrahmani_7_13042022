@@ -1,0 +1,21 @@
+{
+  "name": "samirarrahmani_7_13042022",
+  "version": "1.0.0",
+  "description": "réaliser un site de recettes de cuisine avec un module de recherche.",
+  "main": "index.js",
+  "repository": "https://github.com/samir0067/SamirArrahmani_7_13042022.git",
+  "license": "MIT",
+  "private": true,
+  "browserslist": [
+    "last 4 versions"
+  ],
+  "scripts": {
+    "sass": "sass --watch src/scss/main.scss public/css/main.css"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.13.0"
+  }
+}
