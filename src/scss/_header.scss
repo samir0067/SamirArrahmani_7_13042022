@@ -1,3 +1,6 @@
+@import 'variables';
+@import "mixins";
+
 .header {
   height: 150px;
   display: flex;
@@ -5,5 +8,11 @@
   align-items: flex-end;
   &_link_img {
     width: 268px;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile)) {
+  .header_link_img {
+    width: 175px;
   }
 }
