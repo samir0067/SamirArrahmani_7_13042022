@@ -1,0 +1,38 @@
+@import 'variables';
+@import "mixins";
+
+#searchBar {
+  border: none;
+  height: 69px;
+  background-color: $colorGrey;
+  font-size: 1.5rem;
+}
+
+.input-group .input-group-append {
+  background-color: $colorGrey;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.input-group .fa-search {
+  font-size: 2rem;
+}
+
+@media screen and (max-width: map-get($breakpoints, mobile)) {
+  .input-group {
+    font-size: 1.1rem;
+  }
+
+  .input-group .input-group-append {
+    padding: 1.3rem 0.7rem 0 0.7rem;
+  }
+
+  #searchBar::placeholder {
+    font-size: 1.1rem;
+  }
+  .input-group .fa-search {
+    font-size: 1.7rem;
+  }
+}
+
