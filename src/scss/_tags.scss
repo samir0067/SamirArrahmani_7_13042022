@@ -1,0 +1,36 @@
+@import 'variables';
+
+#tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  padding: 7px 20px;
+  border-radius: 5px;
+  color: $colorWhite;
+  margin: 0.2rem;
+  &.ingredients {
+    background-color: #3282f7;
+  }
+  &.device {
+    background-color: #68d9a4;
+  }
+  &.tools {
+    background-color: #ed6454;
+  }
+  &_close {
+    cursor: pointer;
+    margin-left: 0.7rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, laptop)) {
+  #tags {
+    justify-content: center;
+  }
+}
