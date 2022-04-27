@@ -8,11 +8,15 @@ body {
 .container-fluid {
   width: 90% !important;
   // TODO a supprimer
-  border: #0a53be 1px solid !important;
+  border: $colorBlack 1px solid !important;
 }
 
 li {
   list-style-type: none;
+}
+
+a {
+  text-decoration: none;
 }
 
 @media screen and (max-width: map-get($breakpoints, laptop)) {
