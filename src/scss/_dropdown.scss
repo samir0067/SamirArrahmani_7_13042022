@@ -7,6 +7,8 @@
 .dropdown {
   display: flex;
   &_ingredient button, &_device button, &_tools button {
+    display: flex;
+    align-items: center;
     height: 4.3rem;
     font-size: 1.2rem;
     padding: 0 3rem 0 1rem;
@@ -51,18 +53,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 5px 15px;
     width: 80%;
-    color: #fff;
+    color:$colorWhite;
   }
   &_subContainer li {
-    width: 180px;
-    font-size: 1em;
+    width: 11.5rem;
     list-style-type: none;
-    white-space: nowrap;
     cursor: pointer;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }
 
