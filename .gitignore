@@ -11,4 +11,5 @@ yarn-debug.log*
 yarn-error.log*
 
 fontawesome-free-6.1.1-web/
+public/css/
 
