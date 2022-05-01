@@ -1,44 +1,13 @@
 @import 'variables';
 
-#dropdowns {
-  display: flex;
-}
-
-#appareilSearch {
-  background-color: #68d9a4;
-}
-
-#UstensilesSearch {
-  background-color: #ed6454;
-}
-
-#appareilSearch, #UstensilesSearch {
-  display: inline-block;
-  max-width: 170px;
-  border-style: none;
-  border-radius: 5px;
-  height: 70px;
-  font-size: 1.2em;
-  outline-width: 0;
-  color: white;
-  cursor: pointer;
-}
-
-#appareilSearch::placeholder, #UstensilesSearch::placeholder {
-  font-size: 1em;
-  font-weight: lighter;
-  color: #fff;
-  padding: 10px 20px;
-}
-
 .items[data-selected="true"] {
   display: none;
 }
 
 .dropdown {
-  display: contents;
+  display: flex;
   &_ingredient button, &_device button, &_tools button {
-    height: 69px;
+    height: 4.3rem;
     font-size: 1.2rem;
     padding: 0 3rem 0 1rem;
     margin-right: 1rem;
@@ -59,13 +28,13 @@
   }
   &_subContainer {
     display: none;
-    max-width: 65%;
-    margin: 0 20px 0 0;
+    max-width: 48.1rem;
+    margin-right: 1.25rem;
     padding: 0 0 1rem 1rem;
     border-radius: 10px;
     & input {
       width: 80%;
-      height: 69px;
+      height: 4.3rem;
       color: $colorWhite;
       border-style: none;
       outline-width: 0;
