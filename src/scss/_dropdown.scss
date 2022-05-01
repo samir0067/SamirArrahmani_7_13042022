@@ -1,0 +1,138 @@
+@import 'variables';
+
+#dropdowns {
+  display: flex;
+}
+
+#appareilSearch {
+  background-color: #68d9a4;
+}
+
+#UstensilesSearch {
+  background-color: #ed6454;
+}
+
+#appareilSearch, #UstensilesSearch {
+  display: inline-block;
+  max-width: 170px;
+  border-style: none;
+  border-radius: 5px;
+  height: 70px;
+  font-size: 1.2em;
+  outline-width: 0;
+  color: white;
+  cursor: pointer;
+}
+
+#appareilSearch::placeholder, #UstensilesSearch::placeholder {
+  font-size: 1em;
+  font-weight: lighter;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.items[data-selected="true"] {
+  display: none;
+}
+
+.dropdown {
+  display: contents;
+  &_ingredient button, &_device button, &_tools button {
+    height: 69px;
+    font-size: 1.2rem;
+    padding: 0 3rem 0 1rem;
+    margin-right: 1rem;
+    color: $colorWhite;
+    font-weight: 500;
+    &.btn_ingredient {
+      background-color: $colorPrimary;
+    }
+    &.btn_device {
+      background-color: $colorSuccess;
+    }
+    &.btn_tools {
+      background-color: $colorDanger;
+    }
+  }
+  &_ingredient button .fa-chevron-down, &_device button .fa-chevron-down, &_tools button .fa-chevron-down {
+    margin-left: 1rem;
+  }
+  &_subContainer {
+    display: none;
+    max-width: 65%;
+    margin: 0 20px 0 0;
+    padding: 0 0 1rem 1rem;
+    border-radius: 10px;
+    & input {
+      width: 80%;
+      height: 69px;
+      color: $colorWhite;
+      border-style: none;
+      outline-width: 0;
+    }
+    & input::placeholder {
+      color: $colorSilver;
+    }
+  }
+  &_subContainer .fa-chevron-up {
+    color: $colorWhite;
+    cursor: pointer;
+  }
+  &_subContainer ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 5px 15px;
+    width: 80%;
+    color: #fff;
+  }
+  &_subContainer li {
+    width: 180px;
+    font-size: 1em;
+    list-style-type: none;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.input_content_ingredient, .input_content_ingredient input {
+  background-color: $colorPrimary;
+}
+
+.input_content_device, .input_content_device input {
+  background-color: $colorSuccess;
+}
+
+.input_content_tools, .input_content_tools input {
+  background-color: $colorDanger;
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet)) {
+  #dropdowns {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .dropdown {
+    &_ingredient button, &_device button, &_tools button {
+      margin-top: .25rem;
+    }
+    &_subContainer {
+      max-width: none;
+      margin: 0;
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobileXl)) {
+  .dropdown {
+    display: contents;
+    &_ingredient, &_device, &_tools {
+      width: 100%;
+    }
+    &_ingredient button, &_device button, &_tools button {
+      width: 100%;
+    }
+  }
+}
