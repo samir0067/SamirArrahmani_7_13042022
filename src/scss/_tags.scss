@@ -14,13 +14,13 @@
   color: $colorWhite;
   margin: .2rem;
   &.ingredients {
-    background-color: #3282f7;
+    background-color: $colorPrimary;
   }
   &.device {
-    background-color: #68d9a4;
+    background-color: $colorSuccess;
   }
   &.tools {
-    background-color: #ed6454;
+    background-color: $colorDanger;
   }
   &_close {
     cursor: pointer;
