@@ -98,6 +98,7 @@ const filterFromSearchBar = (ArrayRecipes) => {
       }
       resultFilter = Array.from(new Set(resultFilter))
       main.innerHTML = ""
+      sorting(resultFilter)
       displayRecipes(resultFilter)
       sorting(resultFilter)
       displayOtherItemsList(resultFilter)
