@@ -100,7 +100,6 @@ const filterFromSearchBar = (ArrayRecipes) => {
       main.innerHTML = ""
       sorting(resultFilter)
       displayRecipes(resultFilter)
-      sorting(resultFilter)
       displayOtherItemsList(resultFilter)
     }
 
