@@ -8,7 +8,7 @@ export const inputButtonSearch = (input, array, listeItems) => {
         .toLocaleLowerCase()
         .includes(event.target.value.toLocaleLowerCase())
     })
-    console.log(resultInputButtonSearch)
+    console.log('resultInputButtonSearch', resultInputButtonSearch)
 
     listeItems.forEach((element) => {
       if (!resultInputButtonSearch.includes(element.textContent)) {
