@@ -44,18 +44,6 @@ openDropDown(dropdownIngredient, inputContentIngredient)
 openDropDown(dropdownAppliance, inputContentAppliance)
 openDropDown(dropdownUtensils, inputContentUtensils)
 
-function closeDropDownByArrow(a, b, c, d) {
-  if (a.id === b) {
-    document.querySelector(c).addEventListener("click", function() {
-      a.style.display = "none"
-      d.style.display = "block"
-    })
-  }
-}
-closeDropDownByArrow(inputContentIngredient, ".input_content_ingredient", ".arrow_ingredient", dropdownIngredient)
-closeDropDownByArrow(inputContentAppliance, ".input_content_appliance", ".arrow_appliance", dropdownAppliance)
-closeDropDownByArrow(inputContentUtensils, ".input_content_utensils", ".arrow_utensils", dropdownUtensils)
-
 const closeDropdownFromOutside = (inputActive, inputInactive) => {
   document.addEventListener("click", (e) => {
     if (
@@ -67,10 +55,25 @@ const closeDropdownFromOutside = (inputActive, inputInactive) => {
     }
   })
 }
-
 closeDropdownFromOutside(inputContentIngredient, dropdownIngredient)
 closeDropdownFromOutside(inputContentAppliance, dropdownAppliance)
 closeDropdownFromOutside(inputContentUtensils, dropdownUtensils)
+
+function closeDropDown(a, b, c, d) {
+  if (a.id === b) {
+    document.querySelector(c).addEventListener("click", function() {
+      a.style.display = "none"
+      d.style.display = "block"
+    })
+  }
+}
+closeDropDown(inputContentIngredient, ".input_content_ingredient", ".arrow_ingredient", dropdownIngredient)
+closeDropDown(inputContentAppliance, ".input_content_appliance", ".arrow_appliance", dropdownAppliance)
+closeDropDown(inputContentUtensils, ".input_content_utensils", ".arrow_utensils", dropdownUtensils)
+
+const items = document.querySelectorAll(".items")
+
+let resultFilter = []
 
 //--------------------------------------------------------------------------------------------------------//
 //********************************************** SEARCH BAR **********************************************//
