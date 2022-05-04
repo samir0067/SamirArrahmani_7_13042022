@@ -40,7 +40,6 @@ const openDropDown = (inactive, active) => {
     active.firstChild.nextElementSibling.focus()
   })
 }
-
 openDropDown(dropdownIngredient, inputContentIngredient)
 openDropDown(dropdownAppliance, inputContentAppliance)
 openDropDown(dropdownUtensils, inputContentUtensils)
