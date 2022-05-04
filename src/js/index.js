@@ -46,10 +46,7 @@ openDropDown(dropdownUtensils, inputContentUtensils)
 
 const closeDropdownFromOutside = (inputActive, inputInactive) => {
   document.addEventListener("click", (e) => {
-    if (
-      e.target.parentNode !== inputActive &&
-      e.target.parentNode !== inputInactive
-    ) {
+    if (e.target.parentNode !== inputActive && e.target.parentNode !== inputInactive) {
       inputActive.style.display = "none"
       inputInactive.style.display = "block"
     }
