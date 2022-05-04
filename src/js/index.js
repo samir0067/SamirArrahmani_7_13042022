@@ -19,11 +19,9 @@ import {
   tags,
   searchBar,
   main,
-  items
 } from './domElement.js'
 
 let resultSearch = []
-let resultFilter = []
 
 displayRecipes(recipes)
 
