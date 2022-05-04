@@ -129,8 +129,126 @@ const filterFromSearchBar = (ArrayRecipes) => {
 items.forEach((item) => {
   item.addEventListener("click", function() {
     this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
+    tagProcessingForRecipes()
   })
 })
+
+//--------------------------------------------------------------------------------------------------------//
+//********************************************** TAGS LIST ***********************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const filterRecipeWithTags = (list, filteringRecipes) => {
+  resultSearch = filteringRecipes.filter((recipe) => {
+    const filterAllElements = recipe.ingredients.filter((ingredient) => {
+      if (ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+      if (recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+    })
+
+    const filterElementDeux = recipe.utensils.filter((utensil) => {
+      if (utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+    })
+    return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
+  })
+  main.innerHTML = ""
+  displayOtherItemsList(resultSearch)
+  displayRecipes(resultSearch)
+  sorting(resultSearch)
+}
+
+const triSearchBarAndListeTags = (listeTrue, resultFilter) => {
+  listeTrue.forEach((liste) => {
+    if (listeTrue.length && searchBar.value.length > 2) {
+      filterRecipeWithTags(liste, resultFilter)
+    }
+  })
+}
+
+const tagsList = (listValid) => {
+  document.getElementById("tags").innerHTML = listValid
+    .map((liste) => {
+      if (liste.classList[1] === "items_ingredient") {
+        return `
+        <div class="tag ingredients">
+          <li>${liste.textContent}</li>
+          <i class="far fa-times-circle tag_close"></i>
+        </div>
+      `
+      }
+      if (liste.classList[1] === "items_appliance") {
+        return `
+      <div class="tag appliance">
+        <li>${liste.textContent}</li>
+        <i class="far fa-times-circle tag_close"></i>
+      </div>
+      `
+      }
+      if (liste.classList[1] === "items_utensils") {
+        return `
+      <div class="tag utensils">
+          <li>${liste.textContent}</li>
+          <i class="far fa-times-circle tag_close"></i>
+        </div>
+      `
+      }
+    })
+    .join("")
+}
+
+const closeTag = (listeTrue) => {
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (e) => {
+      listeTrue.forEach((ingredient) => {
+        if (ingredient.textContent === e.target.parentNode.children[0].textContent) {
+          ingredient.dataset.selected =
+            ingredient.dataset.selected === "true" && "false"
+          tagProcessingForRecipes()
+          console.log('resultSearch', resultSearch)
+        }
+      })
+    })
+  }
+}
+
+export const tagProcessingForRecipes = () => {
+  const listValide = Array.from(
+    document.querySelectorAll(".items[data-selected='true']")
+  )
+  tagsList(listValide)
+  triSearchBarAndListeTags(listValide, resultFilter)
+  closeTag(listValide)
+
+  listValide.forEach((liste) => {
+    if (listValide.length === 1 && searchBar.value.length < 3) {
+      filterRecipeWithTags(liste, recipes)
+    }
+    if (listValide.length <= 5 && searchBar.value.length < 3) {
+      filterRecipeWithTags(liste, recipes)
+    }
+  })
+
+  if (listValide.length === 0 && searchBar.value.length < 3) {
+    main.innerHTML = ""
+    displayRecipes(recipes)
+    displayOtherItemsList(recipes)
+    sorting(recipes)
+  }
+  if (listValide.length === 0 && searchBar.value.length > 2) {
+    main.innerHTML = ""
+    displayRecipes(resultFilter)
+    displayOtherItemsList(resultFilter)
+    sorting(resultFilter)
+  }
+  inputIngredient.value = ""
+  inputAppliance.value = ""
+  inputUtensils.value = ""
+}
 
 if (searchBar.value.length < 3) {
   sorting(recipes)
