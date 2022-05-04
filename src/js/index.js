@@ -116,7 +116,8 @@ const filterFromSearchBar = (ArrayRecipes) => {
     displayRecipes(resultSearch)
     displayOtherItemsList(resultSearch)
     document.querySelector(".error_message").style.display = "none"
-  } else if (searchBar.value.length < 3 && tags.childElementCount === 0) {
+  }
+  if (searchBar.value.length < 3 && tags.childElementCount === 0) {
     main.innerHTML = ""
     sorting(recipes)
     displayRecipes(recipes)
