@@ -6,7 +6,7 @@
 
 .dropdown {
   display: flex;
-  &_ingredient button, &_device button, &_tools button {
+  &_ingredient button, &_appliance button, &_tools button {
     display: flex;
     align-items: center;
     height: 4.3rem;
@@ -22,7 +22,7 @@
     &.btn_ingredient {
       background-color: $colorPrimary;
     }
-    &.btn_device {
+    &.btn_appliance {
       background-color: $colorSuccess;
     }
     &.btn_tools {
@@ -30,7 +30,7 @@
     }
   }
 
-  &_ingredient i, &_device i, &_tools i {
+  &_ingredient i, &_appliance i, &_tools i {
     position: absolute;
     color: $colorWhite;
     top: 2rem;
@@ -78,7 +78,7 @@
   background-color: $colorPrimary;
 }
 
-.input_content_device, .input_content_device input {
+.input_content_appliance, .input_content_appliance input {
   background-color: $colorSuccess;
 }
 
@@ -92,7 +92,7 @@
     flex-wrap: wrap;
   }
   .dropdown {
-    &_ingredient button, &_device button, &_tools button {
+    &_ingredient button, &_appliance button, &_tools button {
       margin-top: .25rem;
     }
     &_subContainer {
@@ -105,10 +105,10 @@
 @media screen and (max-width: map-get($breakpoints, mobileXl)) {
   .dropdown {
     display: contents;
-    &_ingredient, &_device, &_tools {
+    &_ingredient, &_appliance, &_tools {
       width: 100%;
     }
-    &_ingredient button, &_device button, &_tools button {
+    &_ingredient button, &_appliance button, &_tools button {
       width: 100%;
     }
   }
