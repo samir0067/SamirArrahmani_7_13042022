@@ -3,10 +3,11 @@ import {
   inputAppliance,
   inputIngredient,
   inputUtensils,
-  itemAppliances,
-  itemIngredients,
-  itemUtensils
 } from './domElement.js'
+
+const itemIngredients = document.querySelectorAll(".items_ingredient")
+const itemAppliances = document.querySelectorAll(".items_appliance")
+const itemUtensils = document.querySelectorAll(".items_utensils")
 
 export const sorting = (recipes) => {
   let ingredientsList = []
