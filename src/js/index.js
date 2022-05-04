@@ -59,11 +59,11 @@ closeDropdownFromOutside(inputContentIngredient, dropdownIngredient)
 closeDropdownFromOutside(inputContentAppliance, dropdownAppliance)
 closeDropdownFromOutside(inputContentUtensils, dropdownUtensils)
 
-function closeDropDown(a, b, c, d) {
-  if (a.id === b) {
-    document.querySelector(c).addEventListener("click", function() {
-      a.style.display = "none"
-      d.style.display = "block"
+function closeDropDown(input, inputParent, arrowUp, buttonParent) {
+  if (input.id === inputParent) {
+    document.querySelector(arrowUp).addEventListener("click", function() {
+      input.style.display = "none"
+      buttonParent.style.display = "block"
     })
   }
 }
