@@ -90,17 +90,9 @@ const filterFromSearchBar = (ArrayRecipes) => {
   if (searchBar.value.length > 2) {
     for (let i = 0; i < ArrayRecipes.length; i++) {
       if (
-        ArrayRecipes[i].name
-          .toLocaleLowerCase()
-          .includes(inputValueToLowerCase) ||
-        ArrayRecipes[i].description
-          .toLocaleLowerCase()
-          .includes(inputValueToLowerCase) ||
-        ArrayRecipes[i].ingredients.some((ingredient) =>
-          ingredient.ingredient
-            .toLocaleLowerCase()
-            .includes(inputValueToLowerCase)
-        )
+        ArrayRecipes[i].name.toLocaleLowerCase().includes(searchBar.value.toLocaleLowerCase()) ||
+        ArrayRecipes[i].description.toLocaleLowerCase().includes(searchBar.value.toLocaleLowerCase()) ||
+        ArrayRecipes[i].ingredients.some(ingredient => ingredient.ingredient.toLocaleLowerCase().includes(searchBar.value.toLocaleLowerCase()))
       ) {
         resultFilter.push(ArrayRecipes[i])
       }
