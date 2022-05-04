@@ -1,4 +1,4 @@
-import {items} from './domElement.js'
+const items = document.querySelectorAll(".items")
 
 export const displayOtherItemsList = (result) => {
   let arrayItems = []

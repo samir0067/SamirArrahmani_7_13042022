@@ -1,11 +1,6 @@
-export const searchBar = document.getElementById("searchBar")
 export const main = document.querySelector(".main")
-export const items = document.querySelectorAll(".items")
+export const searchBar = document.getElementById("searchBar")
 export const tags = document.getElementById("tags")
-
-export const itemIngredients = document.querySelectorAll(".items_ingredient")
-export const itemAppliances = document.querySelectorAll(".items_appliance")
-export const itemUtensils = document.querySelectorAll(".items_utensils")
 
 export const inputIngredient = document.getElementById("inputIngredient")
 export const inputAppliance = document.getElementById("inputAppliance")
