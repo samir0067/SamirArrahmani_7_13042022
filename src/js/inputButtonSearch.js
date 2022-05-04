@@ -3,19 +3,19 @@
  * */
 export const inputButtonSearch = (input, array, listeItems) => {
   input.addEventListener("input", (event) => {
-    let resultInputButtonSearch = array.filter((item) => {
-      return item
+    let resultInputButtonSearch = array.filter((element) => {
+      return element
         .toLocaleLowerCase()
         .includes(event.target.value.toLocaleLowerCase())
     })
     console.log(resultInputButtonSearch)
 
-    listeItems.forEach((item) => {
-      if (resultInputButtonSearch.includes(item.textContent)) {
+    listeItems.forEach((element) => {
+      if (resultInputButtonSearch.includes(element.textContent)) {
         console.log('display')
-        item.style.display = "block"
+        element.style.display = "block"
       } else {
-        item.style.display = "none"
+        element.style.display = "none"
       }
     })
   })
