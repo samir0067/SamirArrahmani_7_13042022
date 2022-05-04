@@ -105,7 +105,8 @@ const filterFromSearchBar = (ArrayRecipes) => {
 
     if (main.children.length < 1) {
       document.querySelector(".error_message").style.display = "block"
-    } else if (main.children.length >= 1) {
+    }
+    if (main.children.length >= 1) {
       document.querySelector(".error_message").style.display = "none"
     }
   } else if (searchBar.value.length < 3 && tags.children[0]) {
