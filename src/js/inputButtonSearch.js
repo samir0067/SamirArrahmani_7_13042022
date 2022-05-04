@@ -11,11 +11,11 @@ export const inputButtonSearch = (input, array, listeItems) => {
     console.log(resultInputButtonSearch)
 
     listeItems.forEach((element) => {
-      if (resultInputButtonSearch.includes(element.textContent)) {
+      if (!resultInputButtonSearch.includes(element.textContent)) {
         console.log('display')
-        element.style.display = "block"
-      } else {
         element.style.display = "none"
+      } else {
+        element.style.display = "block"
       }
     })
   })
