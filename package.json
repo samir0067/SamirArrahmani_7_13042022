@@ -10,7 +10,7 @@
     "last 4 versions"
   ],
   "scripts": {
-    "sass": "sass --watch src/scss/main.scss public/css/main.css"
+    "sass": "sass --watch src/scss/index.scss public/css/index.css"
   },
   "dependencies": {
     "bootstrap": "^5.1.3"

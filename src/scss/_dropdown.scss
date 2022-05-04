@@ -1,0 +1,115 @@
+@import 'variables';
+
+.items[data-selected="true"] {
+  display: none;
+}
+
+.dropdown {
+  display: flex;
+  &_ingredient button, &_appliance button, &_utensils button {
+    display: flex;
+    align-items: center;
+    height: 4.3rem;
+    font-size: 1.2rem;
+    padding: 0 3rem 0 1rem;
+    margin-right: 1rem;
+    color: $colorWhite;
+    font-weight: 500;
+    &:hover {
+      color: $colorWhite;
+      transform: scale(1.03);
+    }
+    &.btn_ingredient {
+      background-color: $colorPrimary;
+    }
+    &.btn_appliance {
+      background-color: $colorSuccess;
+    }
+    &.btn_utensils {
+      background-color: $colorDanger;
+    }
+  }
+
+  &_ingredient i, &_appliance i, &_utensils i {
+    position: absolute;
+    color: $colorWhite;
+    top: 2rem;
+    right: 2.5rem;
+  }
+
+  &_subContainer {
+    display: none;
+    max-width: 45rem;
+    margin-right: 1.25rem;
+    padding: 0 0 1rem 1rem;
+    border-radius: 10px;
+    & input {
+      width: 80%;
+
+      color: $colorWhite;
+    }
+    & input::placeholder {
+      color: $colorSilver;
+    }
+  }
+  &_subContainer .fa-chevron-up {
+    position: absolute;
+    color: $colorWhite;
+    top: 1.2rem;
+    right: 2.5rem;
+    cursor: pointer;
+  }
+  &_subContainer ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: .3rem;
+    width: 80%;
+    color: $colorWhite;
+  }
+  &_subContainer li {
+    width: 11.5rem;
+    list-style-type: none;
+    cursor: pointer;
+  }
+}
+
+.input_content_ingredient, .input_content_ingredient input {
+  background-color: $colorPrimary;
+}
+
+.input_content_appliance, .input_content_appliance input {
+  background-color: $colorSuccess;
+}
+
+.input_content_utensils, .input_content_utensils input {
+  background-color: $colorDanger;
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet)) {
+  #dropdowns {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .dropdown {
+    &_ingredient button, &_appliance button, &_utensils button {
+      margin-top: .25rem;
+    }
+    &_subContainer {
+      max-width: none;
+      margin: 0;
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, mobileXl)) {
+  .dropdown {
+    display: contents;
+    &_ingredient, &_appliance, &_utensils {
+      width: 100%;
+    }
+    &_ingredient button, &_appliance button, &_utensils button {
+      width: 100%;
+    }
+  }
+}
