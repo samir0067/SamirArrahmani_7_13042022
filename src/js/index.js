@@ -96,7 +96,6 @@ const filterFromSearchBar = (ArrayRecipes) => {
       ) {
         resultFilter.push(ArrayRecipes[i])
       }
-
       resultFilter = Array.from(new Set(resultFilter))
       main.innerHTML = ""
       displayRecipes(resultFilter)
