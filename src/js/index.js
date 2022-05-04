@@ -84,8 +84,7 @@ searchBar.addEventListener("input", () => {
   }
 })
 
-const mainBarSearchFilter = (ArrayRecipes) => {
-  const inputValueToLowerCase = searchBar.value.toLocaleLowerCase()
+const filterFromSearchBar = (ArrayRecipes) => {
   resultFilter = []
 
   if (searchBar.value.length > 2) {
