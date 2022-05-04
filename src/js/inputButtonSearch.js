@@ -1,9 +1,12 @@
+/**
+ *  Récupérer la liste des éléments recherchée dans l'entrée et les renvois
+ * */
 export const inputButtonSearch = (input, array, listeItems) => {
-  input.addEventListener("input", (e) => {
+  input.addEventListener("input", (event) => {
     let resultInputButtonSearch = array.filter((item) => {
       return item
         .toLocaleLowerCase()
-        .includes(e.target.value.toLocaleLowerCase())
+        .includes(event.target.value.toLocaleLowerCase())
     })
     console.log(resultInputButtonSearch)
 
