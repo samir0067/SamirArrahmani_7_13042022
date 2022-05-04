@@ -78,9 +78,9 @@ let resultFilter = []
 
 searchBar.addEventListener("input", () => {
   if (tags.children[0]) {
-    mainBarSearchFilter(resultSearch)
+    filterFromSearchBar(resultSearch)
   } else {
-    mainBarSearchFilter(recipes)
+    filterFromSearchBar(recipes)
   }
 })
 
