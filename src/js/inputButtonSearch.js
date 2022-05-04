@@ -12,7 +12,6 @@ export const inputButtonSearch = (input, array, listeItems) => {
 
     listeItems.forEach((element) => {
       if (!resultInputButtonSearch.includes(element.textContent)) {
-        console.log('display')
         element.style.display = "none"
       } else {
         element.style.display = "block"
