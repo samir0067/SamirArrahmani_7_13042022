@@ -1,0 +1,62 @@
+@import 'variables';
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.card {
+  min-width: 18rem;
+  max-width: 32%;
+  max-height: 30rem;
+  border-radius: 5px;
+  overflow: hidden;
+  &_img {
+    min-height: 15rem;
+    height: 15rem;
+    background-color: $colorSilver;
+  }
+  &_body {
+    background-color: $colorGrey;
+    padding: 1rem 1rem;
+    min-height: 15rem;
+    &_header {
+      display: flex;
+      justify-content: space-between;
+    }
+    &_content {
+      display: flex;
+      justify-content: space-between;
+      & p {
+        width: 48%;
+        font-size: .9rem;
+      }
+
+    }
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, laptop)) {
+  .main {
+    justify-content: center;
+  }
+  .card {
+    min-width: 22rem;
+    max-width: 48%;
+  }
+}
+
+@media screen and (max-width: map-get($breakpoints, tablet)) {
+  .main {
+    justify-content: center;
+  }
+  .card {
+    min-width: 0;
+    max-width: 80%;
+    &_body_content p {
+      font-size: .6rem;
+    }
+  }
+}
