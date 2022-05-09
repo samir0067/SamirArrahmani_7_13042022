@@ -1,4 +1,4 @@
-export const dropdownButtons = (input, tags, recipes, article) => {
+export const dropdownButtons = (input, tags, recipes, articles) => {
   let ingredients = []
   let appliance = []
   let utensils = []
@@ -17,18 +17,18 @@ export const dropdownButtons = (input, tags, recipes, article) => {
     utensils.sort((a, b) => a.localeCompare(b))
   })
 
-  if (article === "ingredient") {
+  if (articles === "ingredient") {
     tags.innerHTML = ingredients
-      .map((item) => `<li class="items items_ingredient" data-selected="false">${item}</li>`).join("")
+      .map((article) => `<li class="articles elements_ingredient" data-selected="false">${article}</li>`).join("")
   }
 
-  if (article === "appliance") {
+  if (articles === "appliance") {
     tags.innerHTML = appliance
-      .map((item) => `<li class="items items_appliance" data-selected="false">${item}</li>`).join("")
+      .map((article) => `<li class="articles elements_appliance" data-selected="false">${article}</li>`).join("")
   }
 
-  if (article === "utensils") {
+  if (articles === "utensils") {
     tags.innerHTML = utensils
-      .map((item) => `<li class="items items_utensils" data-selected="false">${item}</li>`).join("")
+      .map((article) => `<li class="articles elements_utensils" data-selected="false">${article}</li>`).join("")
   }
 }

@@ -1,5 +1,5 @@
 /**
- *  Récupérer la liste des éléments recherchée dans l'entrée et les renvois
+ *  Récupérer la liste des éléments recherchée dans l'entrée et renvois le total si aucun article
  * */
 export const inputButtonSearch = (input, array, listeItems) => {
   input.addEventListener("input", (event) => {
@@ -8,8 +8,6 @@ export const inputButtonSearch = (input, array, listeItems) => {
         .toLocaleLowerCase()
         .includes(event.target.value.toLocaleLowerCase())
     })
-    console.log('resultInputButtonSearch', resultInputButtonSearch)
-
     listeItems.forEach((element) => {
       if (!resultInputButtonSearch.includes(element.textContent)) {
         element.style.display = "none"

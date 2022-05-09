@@ -2,23 +2,23 @@ import {recipes} from "./recipes.js"
 import {dropdownButtons} from "./dropDownButtons.js"
 import {displayRecipes} from './displayRecipes.js'
 import {displayOtherItemsList} from './displayOtherItemsList.js'
-import {sorting} from './sorting.js'
+import {inputButtonSearch} from './inputButtonSearch.js'
 import {
-  inputContentAppliance,
   dropdownAppliance,
-  inputAppliance,
-  inputIngredient,
-  inputContentIngredient,
   dropdownIngredient,
-  inputContentUtensils,
-  dropdownUtensils,
-  inputUtensils,
   dropdownSubContainerAppliances,
   dropdownSubContainerIngredients,
   dropdownSubContainerUtensils,
-  tags,
-  searchBar,
+  dropdownUtensils,
+  inputAppliance,
+  inputContentAppliance,
+  inputContentIngredient,
+  inputContentUtensils,
+  inputIngredient,
+  inputUtensils,
   main,
+  searchBar,
+  tags,
 } from './domElement.js'
 
 let resultSearch = []
@@ -64,11 +64,19 @@ function closeDropDown(input, inputParent, arrowUp, buttonParent) {
     })
   }
 }
+
 closeDropDown(inputContentIngredient, ".input_content_ingredient", ".arrow_ingredient", dropdownIngredient)
 closeDropDown(inputContentAppliance, ".input_content_appliance", ".arrow_appliance", dropdownAppliance)
 closeDropDown(inputContentUtensils, ".input_content_utensils", ".arrow_utensils", dropdownUtensils)
 
-const items = document.querySelectorAll(".items")
+const articles = document.querySelectorAll(".articles")
+
+articles.forEach((article) => {
+  article.addEventListener("click", function() {
+    this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
+    tagProcessingForRecipes()
+  })
+})
 
 let resultFilter = []
 
@@ -126,13 +134,6 @@ const filterFromSearchBar = (ArrayRecipes) => {
   }
 }
 
-items.forEach((item) => {
-  item.addEventListener("click", function() {
-    this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
-    tagProcessingForRecipes()
-  })
-})
-
 //--------------------------------------------------------------------------------------------------------//
 //********************************************** TAGS LIST ***********************************************//
 //--------------------------------------------------------------------------------------------------------//
@@ -172,7 +173,7 @@ const triSearchBarAndListeTags = (listeTrue, resultFilter) => {
 const tagsList = (listValid) => {
   document.getElementById("tags").innerHTML = listValid
     .map((liste) => {
-      if (liste.classList[1] === "items_ingredient") {
+      if (liste.classList[1] === "elements_ingredient") {
         return `
         <div class="tag ingredients">
           <li>${liste.textContent}</li>
@@ -180,7 +181,7 @@ const tagsList = (listValid) => {
         </div>
       `
       }
-      if (liste.classList[1] === "items_appliance") {
+      if (liste.classList[1] === "elements_appliance") {
         return `
       <div class="tag appliance">
         <li>${liste.textContent}</li>
@@ -188,7 +189,7 @@ const tagsList = (listValid) => {
       </div>
       `
       }
-      if (liste.classList[1] === "items_utensils") {
+      if (liste.classList[1] === "elements_utensils") {
         return `
       <div class="tag utensils">
           <li>${liste.textContent}</li>
@@ -199,6 +200,10 @@ const tagsList = (listValid) => {
     })
     .join("")
 }
+
+//--------------------------------------------------------------------------------------------------------//
+//********************************************** CLOSE THE TAG *******************************************//
+//--------------------------------------------------------------------------------------------------------//
 
 const closeTag = (listeTrue) => {
   const closing = document.querySelectorAll(".tag_close")
@@ -215,6 +220,10 @@ const closeTag = (listeTrue) => {
     })
   }
 }
+
+//--------------------------------------------------------------------------------------------------------//
+//************************************** TAG PROCESSING FOR RECIPES **************************************//
+//--------------------------------------------------------------------------------------------------------//
 
 export const tagProcessingForRecipes = () => {
   const listValide = Array.from(
@@ -249,6 +258,39 @@ export const tagProcessingForRecipes = () => {
   inputAppliance.value = ""
   inputUtensils.value = ""
 }
+
+//--------------------------------------------------------------------------------------------------------//
+//********************************************** SORT BY ORDER *******************************************//
+//--------------------------------------------------------------------------------------------------------//
+
+const itemIngredients = document.querySelectorAll(".elements_ingredient")
+const itemAppliances = document.querySelectorAll(".elements_appliance")
+const itemUtensils = document.querySelectorAll(".elements_utensils")
+
+const sorting = (recipes) => {
+  let ingredientsList = []
+  let appliancesList = []
+  let utensilsList = []
+
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => ingredientsList.push(ingredient.ingredient))
+    ingredientsList = Array.from(new Set(ingredientsList))
+
+    appliancesList.push(recipe.appliance)
+    appliancesList = Array.from(new Set(appliancesList))
+
+    recipe.utensils.forEach((utensil) => utensilsList.push(utensil))
+    utensilsList = Array.from(new Set(utensilsList))
+  })
+
+  inputButtonSearch(inputIngredient, ingredientsList, itemIngredients)
+  inputButtonSearch(inputAppliance, appliancesList, itemAppliances)
+  inputButtonSearch(inputUtensils, utensilsList, itemUtensils)
+}
+
+//--------------------------------------------------------------------------------------------------------//
+//**************************** MINIMUM REQUIREMENT OF THE SEARCH BAR *************************************//
+//--------------------------------------------------------------------------------------------------------//
 
 if (searchBar.value.length < 3) {
   sorting(recipes)
