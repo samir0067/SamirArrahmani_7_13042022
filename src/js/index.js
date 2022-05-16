@@ -143,12 +143,9 @@ function resettingInputWhenClickingListItem() {
       filteringRecipeWithLabels(items, searchResult)
     }
     if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
-      console.log("yes")
       filteringRecipeWithLabels(items, filterResult)
     }
   }
-  console.log('resultFilter =>', filterResult)
-  console.log('searchResult =>', searchResult)
 
   // TODO filtre en fonction du nombre de balises sélectionnées
   for (let items of selectedItems) {
@@ -157,7 +154,6 @@ function resettingInputWhenClickingListItem() {
     } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
       filteringRecipeWithLabels(items, searchResult)
     }
-    console.log('searchResult select =>', searchResult)
   }
   if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
     mainRecipes.innerHTML = ""
@@ -232,8 +228,8 @@ function displayRemainingItemsList(recipes) {
     for (let ingredient of recipe.ingredients) {
       listRecipes.push(ingredient.ingredient)
     }
-    for (let ustensil of recipe.ustensils) {
-      listRecipes.push(ustensil)
+    for (let utensil of recipe.ustensils) {
+      listRecipes.push(utensil)
     }
     listRecipes.push(recipe.appliance)
     listRecipes = Array.from(new Set(listRecipes))
@@ -243,7 +239,7 @@ function displayRemainingItemsList(recipes) {
       if (item.dataset.selected === "true") {
         item.style.display = "none"
       } else if (item.dataset) {
-        item.style.display = "list-item"
+        item.style.display = "block"
       }
     } else {
       item.style.display = "none"
@@ -253,9 +249,9 @@ function displayRemainingItemsList(recipes) {
 
 // TODO réinitialiser la liste des recettes à la suppression d'un tag
 function resetRecipeListWhenLabelDeleted(selectedLabels) {
-  const croix = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < croix.length; i++) {
-    croix[i].addEventListener("click", (event) => {
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
       for (let label of selectedLabels) {
         if (label.textContent === event.target.parentNode.children[0].textContent) {
           label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
@@ -263,7 +259,17 @@ function resetRecipeListWhenLabelDeleted(selectedLabels) {
         }
       }
     })
-  }
+    const filterElementDeux = recipe.ustensils.filter((ustensil) => {
+      if (ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+    })
+    return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
+  })
+  mainRecipes.innerHTML = ""
+  displayRemainingItemsList(searchResult)
+  displayRecipes(searchResult)
+  sortingItems(searchResult)
 }
 
 // TODO Recherche avancée pour liste déroulante
@@ -276,7 +282,7 @@ function SearchItemsInput(input, array, listeItems) {
     })
     for (let item of listeItems) {
       if (resultSearchInput.includes(item.textContent)) {
-        item.style.display = "list-item"
+        item.style.display = "block"
       } else {
         item.style.display = "none"
       }
@@ -299,8 +305,8 @@ function sortingItems(recipes) {
     listAppliances.push(recipe.appliance)
     listAppliances = Array.from(new Set(listAppliances))
 
-    for (let ustensil of recipe.ustensils) {
-      listUtensils.push(ustensil)
+    for (let utensil of recipe.ustensils) {
+      listUtensils.push(utensil)
     }
     listUtensils = Array.from(new Set(listUtensils))
   }
