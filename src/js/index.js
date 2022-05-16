@@ -253,9 +253,9 @@ function displayRemainingItemsList(recipes) {
 
 // TODO réinitialiser la liste des recettes à la suppression d'un tag
 function resetRecipeListWhenLabelDeleted(selectedLabels) {
-  const croix = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < croix.length; i++) {
-    croix[i].addEventListener("click", (event) => {
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
       for (let label of selectedLabels) {
         if (label.textContent === event.target.parentNode.children[0].textContent) {
           label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
@@ -299,8 +299,8 @@ function sortingItems(recipes) {
     listAppliances.push(recipe.appliance)
     listAppliances = Array.from(new Set(listAppliances))
 
-    for (let ustensil of recipe.ustensils) {
-      listUtensils.push(ustensil)
+    for (let utensil of recipe.ustensils) {
+      listUtensils.push(utensil)
     }
     listUtensils = Array.from(new Set(listUtensils))
   }
