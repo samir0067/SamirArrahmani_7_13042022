@@ -232,8 +232,8 @@ function displayRemainingItemsList(recipes) {
     for (let ingredient of recipe.ingredients) {
       listRecipes.push(ingredient.ingredient)
     }
-    for (let ustensil of recipe.ustensils) {
-      listRecipes.push(ustensil)
+    for (let utensil of recipe.ustensils) {
+      listRecipes.push(utensil)
     }
     listRecipes.push(recipe.appliance)
     listRecipes = Array.from(new Set(listRecipes))
@@ -243,7 +243,7 @@ function displayRemainingItemsList(recipes) {
       if (item.dataset.selected === "true") {
         item.style.display = "none"
       } else if (item.dataset) {
-        item.style.display = "list-item"
+        item.style.display = "block"
       }
     } else {
       item.style.display = "none"
