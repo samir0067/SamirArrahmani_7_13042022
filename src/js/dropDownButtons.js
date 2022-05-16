@@ -31,6 +31,6 @@ export const dropdownButtons = (input, tags, recipes, articles) => {
 
   if (articles === "ustensils") {
     tags.innerHTML = utensils
-      .map((article) => `<li class="items items_ustensils" data-choisi="false">${article}</li>`).join("")
+      .map((article) => `<li class="items items_utensils" data-choisi="false">${article}</li>`).join("")
   }
 }
