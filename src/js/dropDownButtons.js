@@ -6,7 +6,9 @@ export const dropdownButtons = (input, tags, recipes, articles) => {
   let utensils = []
 
   for (let recipe of recipes) {
-    recipe.ingredients.forEach((ingredient) => ingredients.push(ingredient.ingredient))
+    for (let ingredient1 of recipe.ingredients) {
+      ingredients.push(ingredient1.ingredient)
+    }
     ingredients = Array.from(new Set(ingredients))
     ingredients.sort((a, b) => a.localeCompare(b))
 
@@ -14,7 +16,9 @@ export const dropdownButtons = (input, tags, recipes, articles) => {
     appliance = Array.from(new Set(appliance))
     appliance.sort((a, b) => a.localeCompare(b))
 
-    recipe.ustensils.forEach((utensil) => utensils.push(utensil))
+    for (let utensil1 of recipe.ustensils) {
+      utensils.push(utensil1)
+    }
     utensils = Array.from(new Set(utensils))
     utensils.sort((a, b) => a.localeCompare(b))
   }
