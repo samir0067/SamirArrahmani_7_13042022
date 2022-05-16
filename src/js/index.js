@@ -116,6 +116,7 @@ function filteringFromSearchBar(arrayRecipes) {
     displayRemainingItemsList(recipes)
     document.querySelector(".error_message").style.display = "none"
   }
+  console.log('filterResult==', filterResult)
 }
 
 let searchResult = []
@@ -143,7 +144,6 @@ function resettingInputWhenClickingListItem() {
       filteringRecipeWithLabels(item, searchResult)
     }
     if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
-      console.log("yes")
       filteringRecipeWithLabels(item, filterResult)
     }
   })
@@ -168,6 +168,8 @@ function resettingInputWhenClickingListItem() {
     displayRemainingItemsList(filterResult)
     sortingItems(filterResult)
   }
+  console.log('fitter result', filterResult)
+  console.log('search result', searchResult)
   resetRecipeListWhenLabelDeleted(selectedItems)
 }
 
