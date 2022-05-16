@@ -69,7 +69,7 @@ if (idSearchBar.value.length < 3) {
 }
 
 
-// écouter l'événements de l'input de la bar de recherche
+// écouter l'événement de l'entrée de la barre de recherche
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
     filteringFromSearchBar(searchResult)
