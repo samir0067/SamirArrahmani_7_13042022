@@ -2,7 +2,7 @@ import {recipes} from "./recipes.js"
 import {dropdownButtons} from "./dropdownButtons.js"
 import {displayRecipes} from './displayRecipes.js'
 
-// TODO Création de la recherche d'entrée
+// Création de la recherche d'entrée
 const idInputIngredient = document.getElementById("inputIngredient")
 const idInputAppliance = document.getElementById("inputAppliance")
 const idInputUtensils = document.getElementById("inputUtensils")
@@ -35,7 +35,7 @@ let itemsUtensils = document.querySelectorAll(".items_utensils")
 
 displayRecipes(recipes)
 
-// TODO ouverture et fermeture du menu déroulant au clique
+// ouverture et fermeture du menu déroulant au clique
 function openDropdownMenuByClicking(inactive, active) {
   inactive.addEventListener("click", () => {
     inactive.style.display = "none"
@@ -69,7 +69,7 @@ if (idSearchBar.value.length < 3) {
 }
 
 
-// TODO écouter l'événements de l'input de la bar de recherche
+// écouter l'événements de l'input de la bar de recherche
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
     filteringFromSearchBar(searchResult)
@@ -78,7 +78,7 @@ idSearchBar.addEventListener("input", () => {
   }
 })
 
-// TODO Filtrer à partir de la barre de recherche
+// Filtrer à partir de la barre de recherche
 function filteringFromSearchBar(recipesList) {
   filterResult = []
   let i = 0
@@ -99,7 +99,7 @@ function filteringFromSearchBar(recipesList) {
       i++
     }
 
-    // TODO condition pour afficher ou supprimer le message d'erreur
+    // condition pour afficher ou supprimer le message d'erreur
     if (mainRecipes.children.length < 1) {
       document.querySelector(".error_message").style.display = "block"
     } else if (mainRecipes.children.length >= 1) {
@@ -127,7 +127,7 @@ for (let item of listItems) {
   })
 }
 
-//TODO Réinitialisation de la saisie de texte lors d'un clic sur un élément de la liste
+//Réinitialisation de la saisie de texte lors d'un clic sur un élément de la liste
 function resettingInputWhenClickingListItem() {
   const selectedItems = Array.from(document.querySelectorAll(".items[data-selected='true']"))
   idInputIngredient.value = ""
@@ -148,7 +148,7 @@ function resettingInputWhenClickingListItem() {
     }
   }
 
-  // TODO filtre en fonction du nombre de balises sélectionnées
+  // filtre en fonction du nombre de balises sélectionnées
   for (let items of selectedItems) {
     if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
       filteringRecipeWithLabels(items, recipes)
@@ -171,7 +171,7 @@ function resettingInputWhenClickingListItem() {
   resetRecipeListWhenLabelDeleted(selectedItems)
 }
 
-// TODO permets de créer des étiquettes de couleur en fonction du type
+// permets de créer des étiquettes de couleur en fonction du type
 function createTagsByColor(selectedItems) {
   document.getElementById("tags").innerHTML = selectedItems
     .map((liste) => {
@@ -198,7 +198,7 @@ function createTagsByColor(selectedItems) {
     .join("")
 }
 
-// TODO permets de filtrer la recette avec des étiquettes
+// permets de filtrer la recette avec des étiquettes
 function filteringRecipeWithLabels(list, recettes) {
   searchResult = recettes.filter((recipe) => {
     const filterItems = recipe.ingredients.filter((ingredient) => {
@@ -221,7 +221,7 @@ function filteringRecipeWithLabels(list, recettes) {
   sortingItems(searchResult)
 }
 
-// TODO Afficher les éléments restants de la liste
+// Afficher les éléments restants de la liste
 function displayRemainingItemsList(recipes) {
   let listRecipes = []
 
@@ -248,7 +248,7 @@ function displayRemainingItemsList(recipes) {
   }
 }
 
-// TODO réinitialiser la liste des recettes à la suppression d'un tag
+// réinitialiser la liste des recettes à la suppression d'un tag
 function resetRecipeListWhenLabelDeleted(selectedLabels) {
   let i = 0
   const closing = document.querySelectorAll(".tag_close")
@@ -265,7 +265,7 @@ function resetRecipeListWhenLabelDeleted(selectedLabels) {
   }
 }
 
-// TODO Recherche avancée pour liste déroulante
+// Recherche avancée pour liste déroulante
 function SearchItemsInput(input, array, listeItems) {
   input.addEventListener("input", (event) => {
     let resultSearchInput = array.filter((item) => {
@@ -283,7 +283,7 @@ function SearchItemsInput(input, array, listeItems) {
   })
 }
 
-// TODO Tri des articles
+// Tri des articles
 function sortingItems(recipes) {
   let listIngredients = []
   let listAppliances = []
