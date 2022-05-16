@@ -115,12 +115,12 @@ function filteringFromSearchBar(ArrayRecipes) {
 
 let searchResult = []
 
-listItems.forEach((item) => {
+for (let item of listItems) {
   item.addEventListener("click", function() {
     this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
     resettingInputWhenClickingListItem()
   })
-})
+}
 
 //TODO Réinitialisation de la saisie de texte lors d'un clic sur un élément de la liste
 function resettingInputWhenClickingListItem() {
@@ -129,21 +129,30 @@ function resettingInputWhenClickingListItem() {
   idInputAppliance.value = ""
   idInputUtensils.value = ""
   createTagsByColor(selectedItems)
-  triSearchBarAndListeTags(selectedItems, filterResult)
+
+  // TODO Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
+  for (let items of selectedItems) {
+    if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, filterResult)
+    } else if (selectedItems.length >= 2 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, searchResult)
+    }
+    if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
+      console.log("yes")
+      filteringRecipeWithLabels(items, filterResult)
+    }
+  }
+  console.log('resultFilter =>', filterResult)
+  console.log('searchResult =>', searchResult)
 
   // TODO filtre en fonction du nombre de balises sélectionnées
   for (let items of selectedItems) {
     if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
       filteringRecipeWithLabels(items, recipes)
-    } else if (selectedItems.length === 2 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, searchResult)
-    } else if (selectedItems.length === 3 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, searchResult)
-    } else if (selectedItems.length === 4 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, searchResult)
-    } else if (selectedItems.length === 5 && idSearchBar.value.length < 3) {
+    } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
       filteringRecipeWithLabels(items, searchResult)
     }
+    console.log('searchResult select =>', searchResult)
   }
   if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
     mainRecipes.innerHTML = ""
@@ -158,27 +167,6 @@ function resettingInputWhenClickingListItem() {
     sortingItems(filterResult)
   }
   resetRecipeListWhenLabelDeleted(selectedItems)
-}
-
-// TODO Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
-function triSearchBarAndListeTags(selectedItems, resultFilter) {
-  for (let items of selectedItems) {
-    if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, resultFilter)
-    } else if (selectedItems.length === 2 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, searchResult)
-    } else if (selectedItems.length === 3 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, searchResult)
-    } else if (selectedItems.length === 4 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, searchResult)
-    } else if (selectedItems.length === 5 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, searchResult)
-    }
-    if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
-      console.log("yes")
-      filteringRecipeWithLabels(items, resultFilter)
-    }
-  }
 }
 
 // TODO permets de créer des étiquettes de couleur en fonction du type
@@ -232,21 +220,21 @@ function filteringRecipeWithLabels(list, recettes) {
 }
 
 // TODO Afficher les éléments restants de la liste
-function displayRemainingItemsList(result) {
-  let newArr = []
-  result.forEach((recipe) => {
-    recipe.ingredients.forEach((ingredient) => {
-      newArr.push(ingredient.ingredient)
-    })
-    recipe.ustensils.forEach((ustensil) => {
-      newArr.push(ustensil)
-    })
-    newArr.push(recipe.appliance)
-    newArr = Array.from(new Set(newArr))
-  })
+function displayRemainingItemsList(recipes) {
+  let listRecipes = []
 
-  listItems.forEach((item) => {
-    if (newArr.includes(item.textContent)) {
+  for (let recipe of recipes) {
+    for (let ingredient of recipe.ingredients) {
+      listRecipes.push(ingredient.ingredient)
+    }
+    for (let ustensil of recipe.ustensils) {
+      listRecipes.push(ustensil)
+    }
+    listRecipes.push(recipe.appliance)
+    listRecipes = Array.from(new Set(listRecipes))
+  }
+  for (let item of listItems) {
+    if (listRecipes.includes(item.textContent)) {
       if (item.dataset.selected === "true") {
         item.style.display = "none"
       } else if (item.dataset) {
@@ -255,20 +243,20 @@ function displayRemainingItemsList(result) {
     } else {
       item.style.display = "none"
     }
-  })
+  }
 }
 
 // TODO réinitialiser la liste des recettes à la suppression d'un tag
-function resetRecipeListWhenLabelDeleted(listeTrue) {
+function resetRecipeListWhenLabelDeleted(selectedLabels) {
   const croix = document.querySelectorAll(".tag_close")
   for (let i = 0; i < croix.length; i++) {
     croix[i].addEventListener("click", (event) => {
-      listeTrue.forEach((ingredient) => {
-        if (ingredient.textContent === event.target.parentNode.children[0].textContent) {
-          ingredient.dataset.selected = ingredient.dataset.selected === "true" ? "false" : "true"
+      for (let label of selectedLabels) {
+        if (label.textContent === event.target.parentNode.children[0].textContent) {
+          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
           resettingInputWhenClickingListItem()
         }
-      })
+      }
     })
   }
 }
@@ -281,36 +269,40 @@ function SearchItemsInput(input, array, listeItems) {
         .toLocaleLowerCase()
         .includes(event.target.value.toLocaleLowerCase())
     })
-    listeItems.forEach((item) => {
+    for (let item of listeItems) {
       if (resultSearchInput.includes(item.textContent)) {
         item.style.display = "list-item"
       } else {
         item.style.display = "none"
       }
-    })
+    }
   })
 }
 
 // TODO Tri des articles
 function sortingItems(recipes) {
-  let allIngredients = []
-  let allAppliances = []
-  let allUstensils = []
+  let listIngredients = []
+  let listAppliances = []
+  let listUtensils = []
 
-  recipes.forEach((recipe) => {
-    recipe.ingredients.forEach((ingredient) => allIngredients.push(ingredient.ingredient))
-    allIngredients = Array.from(new Set(allIngredients))
+  for (let recipe of recipes) {
+    for (let ingredient of recipe.ingredients) {
+      listIngredients.push(ingredient.ingredient)
+    }
+    listIngredients = Array.from(new Set(listIngredients))
 
-    allAppliances.push(recipe.appliance)
-    allAppliances = Array.from(new Set(allAppliances))
+    listAppliances.push(recipe.appliance)
+    listAppliances = Array.from(new Set(listAppliances))
 
-    recipe.ustensils.forEach((ustensil) => allUstensils.push(ustensil))
-    allUstensils = Array.from(new Set(allUstensils))
-  })
+    for (let ustensil of recipe.ustensils) {
+      listUtensils.push(ustensil)
+    }
+    listUtensils = Array.from(new Set(listUtensils))
+  }
 
-  SearchItemsInput(idInputIngredient, allIngredients, itemsIngredient)
-  SearchItemsInput(idInputAppliance, allAppliances, itemsAppliance)
-  SearchItemsInput(idInputUtensils, allUstensils, itemsUtensils)
+  SearchItemsInput(idInputIngredient, listIngredients, itemsIngredient)
+  SearchItemsInput(idInputAppliance, listAppliances, itemsAppliance)
+  SearchItemsInput(idInputUtensils, listUtensils, itemsUtensils)
 }
 
 if (idSearchBar.value.length < 3) {
