@@ -35,7 +35,7 @@ let itemsUtensils = document.querySelectorAll(".items_utensils")
 
 displayRecipes(recipes)
 
-// ouverture et fermeture du menu déroulant au clique
+// ouverture et fermeture du menu déroulant
 function openDropdownMenuByClicking(inactive, active) {
   inactive.addEventListener("click", () => {
     inactive.style.display = "none"
