@@ -120,12 +120,12 @@ function filteringFromSearchBar(ArrayRecipes) {
 
 let searchResult = []
 
-for (let item of listItems) {
+listItems.forEach((item) => {
   item.addEventListener("click", function() {
     this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
     resettingInputWhenClickingListItem()
   })
-}
+})
 
 //TODO Réinitialisation de la saisie de texte lors d'un clic sur un élément de la liste
 function resettingInputWhenClickingListItem() {
@@ -136,29 +136,26 @@ function resettingInputWhenClickingListItem() {
   createTagsByColor(selectedItems)
 
   // TODO Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
-  for (let items of selectedItems) {
+  selectedItems.forEach((item) => {
     if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, filterResult)
+      filteringRecipeWithLabels(item, filterResult)
     } else if (selectedItems.length >= 2 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, searchResult)
+      filteringRecipeWithLabels(item, searchResult)
     }
     if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
       console.log("yes")
-      filteringRecipeWithLabels(items, filterResult)
+      filteringRecipeWithLabels(item, filterResult)
     }
-  }
-  console.log('resultFilter =>', filterResult)
-  console.log('searchResult =>', searchResult)
+  })
 
   // TODO filtre en fonction du nombre de balises sélectionnées
-  for (let items of selectedItems) {
+  selectedItems.forEach((item) => {
     if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, recipes)
+      filteringRecipeWithLabels(item, recipes)
     } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, searchResult)
+      filteringRecipeWithLabels(item, searchResult)
     }
-    console.log('searchResult select =>', searchResult)
-  }
+  })
   if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
     mainRecipes.innerHTML = ""
     displayRecipes(recipes)
@@ -228,17 +225,15 @@ function filteringRecipeWithLabels(list, recettes) {
 function displayRemainingItemsList(recipes) {
   let listRecipes = []
 
-  for (let recipe of recipes) {
-    for (let ingredient of recipe.ingredients) {
-      listRecipes.push(ingredient.ingredient)
-    }
-    for (let ustensil of recipe.ustensils) {
-      listRecipes.push(ustensil)
-    }
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => listRecipes.push(ingredient.ingredient))
+    recipe.ustensils.forEach((ustensil) => listRecipes.push(ustensil))
+
     listRecipes.push(recipe.appliance)
     listRecipes = Array.from(new Set(listRecipes))
-  }
-  for (let item of listItems) {
+  })
+
+  listItems.forEach((item) => {
     if (listRecipes.includes(item.textContent)) {
       if (item.dataset.selected === "true") {
         item.style.display = "none"
@@ -248,20 +243,20 @@ function displayRemainingItemsList(recipes) {
     } else {
       item.style.display = "none"
     }
-  }
+  })
 }
 
 // TODO réinitialiser la liste des recettes à la suppression d'un tag
 function resetRecipeListWhenLabelDeleted(selectedLabels) {
-  const croix = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < croix.length; i++) {
-    croix[i].addEventListener("click", (event) => {
-      for (let label of selectedLabels) {
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
+      selectedLabels.forEach((label) => {
         if (label.textContent === event.target.parentNode.children[0].textContent) {
           label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
           resettingInputWhenClickingListItem()
         }
-      }
+      })
     })
   }
 }
@@ -274,13 +269,13 @@ function SearchItemsInput(input, array, listeItems) {
         .toLocaleLowerCase()
         .includes(event.target.value.toLocaleLowerCase())
     })
-    for (let item of listeItems) {
+    listeItems.forEach((item) => {
       if (resultSearchInput.includes(item.textContent)) {
         item.style.display = "list-item"
       } else {
         item.style.display = "none"
       }
-    }
+    })
   })
 }
 
@@ -290,20 +285,16 @@ function sortingItems(recipes) {
   let listAppliances = []
   let listUtensils = []
 
-  for (let recipe of recipes) {
-    for (let ingredient of recipe.ingredients) {
-      listIngredients.push(ingredient.ingredient)
-    }
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => listIngredients.push(ingredient))
     listIngredients = Array.from(new Set(listIngredients))
 
     listAppliances.push(recipe.appliance)
     listAppliances = Array.from(new Set(listAppliances))
 
-    for (let ustensil of recipe.ustensils) {
-      listUtensils.push(ustensil)
-    }
+    recipe.ustensils.forEach((utensil) => listUtensils.push(utensil))
     listUtensils = Array.from(new Set(listUtensils))
-  }
+  })
 
   SearchItemsInput(idInputIngredient, listIngredients, itemsIngredient)
   SearchItemsInput(idInputAppliance, listAppliances, itemsAppliance)
