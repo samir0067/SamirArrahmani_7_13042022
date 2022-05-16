@@ -23,7 +23,7 @@ const inputContentIngredient = document.querySelector(".input_content_ingredient
 const inputContentAppliance = document.querySelector(".input_content_appliance")
 const inputContentUtensils = document.querySelector(".input_content_utensils")
 
-const containerRecipes = document.querySelector(".main")
+const mainRecipes = document.querySelector(".main")
 const listItems = document.querySelectorAll(".items")
 
 const idSearchBar = document.getElementById("searchBar")
@@ -87,26 +87,26 @@ function mainBarSearchFilter(ArrayRecipes) {
         filterResult.push(ArrayRecipes[i])
       }
       filterResult = Array.from(new Set(filterResult))
-      containerRecipes.innerHTML = ""
+      mainRecipes.innerHTML = ""
       displayRecipes(filterResult)
       sorting(filterResult)
       showRemainingListItems(filterResult)
     }
 
     // TODO condition pour afficher ou supprimer le message d'erreur
-    if (containerRecipes.children.length < 1) {
+    if (mainRecipes.children.length < 1) {
       document.querySelector(".error_message").style.display = "block"
-    } else if (containerRecipes.children.length >= 1) {
+    } else if (mainRecipes.children.length >= 1) {
       document.querySelector(".error_message").style.display = "none"
     }
   } else if (idSearchBar.value.length < 3 && idTags.children[0]) {
-    containerRecipes.innerHTML = ""
+    mainRecipes.innerHTML = ""
     sorting(resultSearchAndClick)
     displayRecipes(resultSearchAndClick)
     showRemainingListItems(resultSearchAndClick)
     document.querySelector(".error_message").style.display = "none"
   } else if (idSearchBar.value.length < 3 && idTags.childElementCount === 0) {
-    containerRecipes.innerHTML = ""
+    mainRecipes.innerHTML = ""
     sorting(recipes)
     displayRecipes(recipes)
     showRemainingListItems(recipes)
@@ -148,13 +148,13 @@ function filterRecipesOnClick() {
   })
 
   if (listTrue.length === 0 && idSearchBar.value.length < 3) {
-    containerRecipes.innerHTML = ""
+    mainRecipes.innerHTML = ""
     displayRecipes(recipes)
     showRemainingListItems(recipes)
     sorting(recipes)
   }
   if (listTrue.length === 0 && idSearchBar.value.length > 2) {
-    containerRecipes.innerHTML = ""
+    mainRecipes.innerHTML = ""
     displayRecipes(filterResult)
     showRemainingListItems(filterResult)
     sorting(filterResult)
@@ -227,7 +227,7 @@ function filterRecipeWithTags(list, recettes) {
     })
     return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
   })
-  containerRecipes.innerHTML = ""
+  mainRecipes.innerHTML = ""
   showRemainingListItems(resultSearchAndClick)
   displayRecipes(resultSearchAndClick)
   sorting(resultSearchAndClick)
