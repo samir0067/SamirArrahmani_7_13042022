@@ -66,7 +66,7 @@ let filterResult = []
 // TODO écouter l'événements de l'input de la bar de recherche
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
-    filteringFromSearchBar(resultSearchAndClick)
+    filteringFromSearchBar(searchResult)
   } else {
     filteringFromSearchBar(recipes)
   }
@@ -100,9 +100,9 @@ function filteringFromSearchBar(ArrayRecipes) {
     }
   } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
     mainRecipes.innerHTML = ""
-    sortingItems(resultSearchAndClick)
-    displayRecipes(resultSearchAndClick)
-    displayRemainingItemsList(resultSearchAndClick)
+    sortingItems(searchResult)
+    displayRecipes(searchResult)
+    displayRemainingItemsList(searchResult)
     document.querySelector(".error_message").style.display = "none"
   } else if (idSearchBar.value.length < 3 && idLabels.childElementCount === 0) {
     mainRecipes.innerHTML = ""
@@ -113,7 +113,7 @@ function filteringFromSearchBar(ArrayRecipes) {
   }
 }
 
-let resultSearchAndClick = []
+let searchResult = []
 
 listItems.forEach((item) => {
   item.addEventListener("click", function() {
@@ -124,67 +124,66 @@ listItems.forEach((item) => {
 
 //TODO Réinitialisation de la saisie de texte lors d'un clic sur un élément de la liste
 function resettingInputWhenClickingListItem() {
-  const listTrue = Array.from(document.querySelectorAll(".items[data-selected='true']"))
+  const selectedItems = Array.from(document.querySelectorAll(".items[data-selected='true']"))
   idInputIngredient.value = ""
   idInputAppliance.value = ""
   idInputUtensils.value = ""
-  createTagsByColor(listTrue)
-  triSearchBarAndListeTags(listTrue, filterResult)
+  createTagsByColor(selectedItems)
+  triSearchBarAndListeTags(selectedItems, filterResult)
 
   // TODO filtre en fonction du nombre de balises sélectionnées
-  listTrue.forEach((liste) => {
-    if (listTrue.length === 1 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(liste, recipes)
-    } else if (listTrue.length === 2 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
-    } else if (listTrue.length === 3 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
-    } else if (listTrue.length === 4 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
-    } else if (listTrue.length === 5 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
+  for (let items of selectedItems) {
+    if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, recipes)
+    } else if (selectedItems.length === 2 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, searchResult)
+    } else if (selectedItems.length === 3 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, searchResult)
+    } else if (selectedItems.length === 4 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, searchResult)
+    } else if (selectedItems.length === 5 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, searchResult)
     }
-  })
-
-  if (listTrue.length === 0 && idSearchBar.value.length < 3) {
+  }
+  if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
     mainRecipes.innerHTML = ""
     displayRecipes(recipes)
     displayRemainingItemsList(recipes)
     sortingItems(recipes)
   }
-  if (listTrue.length === 0 && idSearchBar.value.length > 2) {
+  if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
     mainRecipes.innerHTML = ""
     displayRecipes(filterResult)
     displayRemainingItemsList(filterResult)
     sortingItems(filterResult)
   }
-  resetRecipeListWhenLabelDeleted(listTrue)
+  resetRecipeListWhenLabelDeleted(selectedItems)
 }
 
 // TODO Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
-function triSearchBarAndListeTags(listeTrue, resultFilter) {
-  listeTrue.forEach((liste) => {
-    if (listeTrue.length === 1 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(liste, resultFilter)
-    } else if (listeTrue.length === 2 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
-    } else if (listeTrue.length === 3 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
-    } else if (listeTrue.length === 4 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
-    } else if (listeTrue.length === 5 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(liste, resultSearchAndClick)
+function triSearchBarAndListeTags(selectedItems, resultFilter) {
+  for (let items of selectedItems) {
+    if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, resultFilter)
+    } else if (selectedItems.length === 2 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, searchResult)
+    } else if (selectedItems.length === 3 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, searchResult)
+    } else if (selectedItems.length === 4 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, searchResult)
+    } else if (selectedItems.length === 5 && idSearchBar.value.length > 2) {
+      filteringRecipeWithLabels(items, searchResult)
     }
-    if (listeTrue.length === 0 && idSearchBar.value.length > 2) {
+    if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
       console.log("yes")
-      filteringRecipeWithLabels(liste, resultFilter)
+      filteringRecipeWithLabels(items, resultFilter)
     }
-  })
+  }
 }
 
 // TODO permets de créer des étiquettes de couleur en fonction du type
-function createTagsByColor(listTrue) {
-  document.getElementById("tags").innerHTML = listTrue
+function createTagsByColor(selectedItems) {
+  document.getElementById("tags").innerHTML = selectedItems
     .map((liste) => {
       if (liste.classList[1] === "items_ingredient") {
         return `
@@ -211,7 +210,7 @@ function createTagsByColor(listTrue) {
 
 // TODO permets de filtrer la recette avec des étiquettes
 function filteringRecipeWithLabels(list, recettes) {
-  resultSearchAndClick = recettes.filter((recipe) => {
+  searchResult = recettes.filter((recipe) => {
     const filterAllElements = recipe.ingredients.filter((ingredient) => {
       if (ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
         return ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
@@ -227,9 +226,9 @@ function filteringRecipeWithLabels(list, recettes) {
     return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
   })
   mainRecipes.innerHTML = ""
-  displayRemainingItemsList(resultSearchAndClick)
-  displayRecipes(resultSearchAndClick)
-  sortingItems(resultSearchAndClick)
+  displayRemainingItemsList(searchResult)
+  displayRecipes(searchResult)
+  sortingItems(searchResult)
 }
 
 // TODO Afficher les éléments restants de la liste
