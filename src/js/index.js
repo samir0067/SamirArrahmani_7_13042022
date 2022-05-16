@@ -47,8 +47,8 @@ function openDropdownMenu(inactive, active) {
 function closeDropdownMenu(inactive, active) {
   document.addEventListener("click", (event) => {
     if (event.target.parentNode !== active && event.target.parentNode !== inactive) {
-      active.style.display = "none"
       inactive.style.display = "block"
+      active.style.display = "none"
     }
   })
 }
