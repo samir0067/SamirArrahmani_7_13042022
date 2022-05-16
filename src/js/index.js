@@ -62,6 +62,7 @@ closeDropdownMenuByClicking(dropdownAppliance, inputContentAppliance)
 closeDropdownMenuByClicking(dropdownUtensils, inputContentUtensils)
 
 let filterResult = []
+let searchResult = []
 
 if (idSearchBar.value.length < 3) {
   sortingItems(recipes)
@@ -78,23 +79,24 @@ idSearchBar.addEventListener("input", () => {
 })
 
 // TODO Filtrer à partir de la barre de recherche
-function filteringFromSearchBar(ArrayRecipes) {
+function filteringFromSearchBar(recipesList) {
   filterResult = []
-
+  let i = 0
   if (idSearchBar.value.length >= 3) {
-    for (let i = 0; i < ArrayRecipes.length; i++) {
+    while (i < recipesList.length) {
       if (
-        ArrayRecipes[i].name.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
-        ArrayRecipes[i].description.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
-        ArrayRecipes[i].ingredients.some((ingredient) => ingredient.ingredient.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()))
+        recipesList[i].name.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
+        recipesList[i].description.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
+        recipesList[i].ingredients.some((ingredient) => ingredient.ingredient.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()))
       ) {
-        filterResult.push(ArrayRecipes[i])
+        filterResult.push(recipesList[i])
       }
       filterResult = Array.from(new Set(filterResult))
       mainRecipes.innerHTML = ""
       displayRecipes(filterResult)
       sortingItems(filterResult)
       displayRemainingItemsList(filterResult)
+      i++
     }
 
     // TODO condition pour afficher ou supprimer le message d'erreur
@@ -118,8 +120,6 @@ function filteringFromSearchBar(ArrayRecipes) {
   }
 }
 
-let searchResult = []
-
 for (let item of listItems) {
   item.addEventListener("click", function() {
     this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
@@ -135,7 +135,8 @@ function resettingInputWhenClickingListItem() {
   idInputUtensils.value = ""
   createTagsByColor(selectedItems)
 
-  // TODO Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
+  // Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre
+  // principale
   for (let items of selectedItems) {
     if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
       filteringRecipeWithLabels(items, filterResult)
@@ -249,8 +250,9 @@ function displayRemainingItemsList(recipes) {
 
 // TODO réinitialiser la liste des recettes à la suppression d'un tag
 function resetRecipeListWhenLabelDeleted(selectedLabels) {
+  let i = 0
   const closing = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < closing.length; i++) {
+  while (i < closing.length) {
     closing[i].addEventListener("click", (event) => {
       for (let label of selectedLabels) {
         if (label.textContent === event.target.parentNode.children[0].textContent) {
@@ -259,6 +261,7 @@ function resetRecipeListWhenLabelDeleted(selectedLabels) {
         }
       }
     })
+    i++
   }
 }
 
