@@ -1,6 +1,6 @@
 const main = document.querySelector(".main")
 
-// TODO fonction qui me permet d'afficher tout le contenu de chaque recette sur une carte.
+// fonction qui me permet d'afficher tout le contenu de chaque recette sur une carte.
 export function displayRecipes(recipes) {
   recipes.forEach((recipe) => {
     const card = `

@@ -1,4 +1,4 @@
-// TODO fonction qui me permet d'injecté chaque ingredient, appareil ou ustensile dans les
+//  fonction qui me permet d'injecté chaque ingredient, appareil ou ustensile dans les
 //  champs des recherches.
 export const dropdownButtons = (input, tags, recipes, articles) => {
   let ingredients = []
