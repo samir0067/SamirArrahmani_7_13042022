@@ -143,12 +143,9 @@ function resettingInputWhenClickingListItem() {
       filteringRecipeWithLabels(items, searchResult)
     }
     if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
-      console.log("yes")
       filteringRecipeWithLabels(items, filterResult)
     }
   }
-  console.log('resultFilter =>', filterResult)
-  console.log('searchResult =>', searchResult)
 
   // TODO filtre en fonction du nombre de balises sélectionnées
   for (let items of selectedItems) {
@@ -157,7 +154,6 @@ function resettingInputWhenClickingListItem() {
     } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
       filteringRecipeWithLabels(items, searchResult)
     }
-    console.log('searchResult select =>', searchResult)
   }
   if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
     mainRecipes.innerHTML = ""
