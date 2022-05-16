@@ -36,7 +36,7 @@ let itemsUtensils = document.querySelectorAll(".items_utensils")
 displayRecipes(recipes)
 
 // ouverture et fermeture du menu déroulant
-function openDropdownMenuByClicking(inactive, active) {
+function openDropdownMenu(inactive, active) {
   inactive.addEventListener("click", () => {
     inactive.style.display = "none"
     active.style.display = "block"
@@ -44,7 +44,7 @@ function openDropdownMenuByClicking(inactive, active) {
   })
 }
 
-function closeDropdownMenuByClicking(inactive, active) {
+function closeDropdownMenu(inactive, active) {
   document.addEventListener("click", (event) => {
     if (event.target.parentNode !== active && event.target.parentNode !== inactive) {
       active.style.display = "none"
@@ -53,13 +53,13 @@ function closeDropdownMenuByClicking(inactive, active) {
   })
 }
 
-openDropdownMenuByClicking(dropdownIngredient, inputContentIngredient)
-openDropdownMenuByClicking(dropdownAppliance, inputContentAppliance)
-openDropdownMenuByClicking(dropdownUtensils, inputContentUtensils)
+openDropdownMenu(dropdownIngredient, inputContentIngredient)
+openDropdownMenu(dropdownAppliance, inputContentAppliance)
+openDropdownMenu(dropdownUtensils, inputContentUtensils)
 
-closeDropdownMenuByClicking(dropdownIngredient, inputContentIngredient)
-closeDropdownMenuByClicking(dropdownAppliance, inputContentAppliance)
-closeDropdownMenuByClicking(dropdownUtensils, inputContentUtensils)
+closeDropdownMenu(dropdownIngredient, inputContentIngredient)
+closeDropdownMenu(dropdownAppliance, inputContentAppliance)
+closeDropdownMenu(dropdownUtensils, inputContentUtensils)
 
 let filterResult = []
 let searchResult = []
