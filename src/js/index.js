@@ -63,6 +63,11 @@ closeDropdownMenuByClicking(dropdownUtensils, inputContentUtensils)
 
 let filterResult = []
 
+if (idSearchBar.value.length < 3) {
+  sortingItems(recipes)
+}
+
+
 // TODO écouter l'événements de l'input de la bar de recherche
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
@@ -303,8 +308,4 @@ function sortingItems(recipes) {
   SearchItemsInput(idInputIngredient, listIngredients, itemsIngredient)
   SearchItemsInput(idInputAppliance, listAppliances, itemsAppliance)
   SearchItemsInput(idInputUtensils, listUtensils, itemsUtensils)
-}
-
-if (idSearchBar.value.length < 3) {
-  sortingItems(recipes)
 }
