@@ -1,3 +1,5 @@
+// TODO fonction qui me permet d'injecté chaque ingredient, appareil ou ustensile dans les
+//  champs des recherches.
 export const dropdownButtons = (input, tags, recipes, articles) => {
   let ingredients = []
   let appliance = []
@@ -12,23 +14,23 @@ export const dropdownButtons = (input, tags, recipes, articles) => {
     appliance = Array.from(new Set(appliance))
     appliance.sort((a, b) => a.localeCompare(b))
 
-    recipe.utensils.forEach((utensil) => utensils.push(utensil))
+    recipe.ustensils.forEach((utensil) => utensils.push(utensil))
     utensils = Array.from(new Set(utensils))
     utensils.sort((a, b) => a.localeCompare(b))
   })
 
   if (articles === "ingredient") {
     tags.innerHTML = ingredients
-      .map((article) => `<li class="articles elements_ingredient" data-selected="false">${article}</li>`).join("")
+      .map((article) => `<li class="items items_ingredient" data-choisi="false">${article}</li>`).join("")
   }
 
   if (articles === "appliance") {
     tags.innerHTML = appliance
-      .map((article) => `<li class="articles elements_appliance" data-selected="false">${article}</li>`).join("")
+      .map((article) => `<li class="items items_appliance" data-choisi="false">${article}</li>`).join("")
   }
 
-  if (articles === "utensils") {
+  if (articles === "ustensils") {
     tags.innerHTML = utensils
-      .map((article) => `<li class="articles elements_utensils" data-selected="false">${article}</li>`).join("")
+      .map((article) => `<li class="items items_ustensils" data-choisi="false">${article}</li>`).join("")
   }
 }
