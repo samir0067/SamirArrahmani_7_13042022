@@ -259,7 +259,17 @@ function resetRecipeListWhenLabelDeleted(selectedLabels) {
         }
       }
     })
-  }
+    const filterElementDeux = recipe.ustensils.filter((ustensil) => {
+      if (ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+    })
+    return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
+  })
+  mainRecipes.innerHTML = ""
+  displayRemainingItemsList(searchResult)
+  displayRecipes(searchResult)
+  sortingItems(searchResult)
 }
 
 // TODO Recherche avancée pour liste déroulante
