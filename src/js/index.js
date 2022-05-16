@@ -68,7 +68,7 @@ if (idSearchBar.value.length < 3) {
 }
 
 
-//  écouter l'événements de l'input de la bar de recherche
+//  écouter l'événement de l'entrée de la barre de recherche
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
     filteringFromSearchBar(searchResult)
@@ -240,7 +240,7 @@ function displayRemainingItemsList(recipes) {
       if (item.dataset.selected === "true") {
         item.style.display = "none"
       } else if (item.dataset) {
-        item.style.display = "list-item"
+        item.style.display = "block"
       }
     } else {
       item.style.display = "none"
@@ -273,7 +273,7 @@ function SearchItemsInput(input, array, listeItems) {
     })
     listeItems.forEach((item) => {
       if (resultSearchInput.includes(item.textContent)) {
-        item.style.display = "list-item"
+        item.style.display = "block"
       } else {
         item.style.display = "none"
       }
