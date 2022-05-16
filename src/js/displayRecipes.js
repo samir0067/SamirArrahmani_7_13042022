@@ -1,5 +1,6 @@
-import {main} from './domElement.js'
+const main = document.querySelector(".main")
 
+// TODO fonction qui me permet d'afficher tout le contenu de chaque recette sur une carte.
 export function displayRecipes(recipes) {
   for (let recipe of recipes) {
     const card = `
@@ -13,8 +14,8 @@ export function displayRecipes(recipes) {
           <div class="card_body_content">
             <p class="card_body_content_first">
               ${recipe.ingredients.map((ingredient) =>
-              `<strong>${ingredient.ingredient}</strong> : ${ingredient.quantity} ${ingredient.unit}`)
-              .join('<br />')}
+      `<strong>${ingredient.ingredient}</strong> : ${ingredient.quantity} ${ingredient.unit}`)
+      .join('<br />')}
             </p class="card_body_content_second">
             <p>${recipe.description}</p>
           </div>
