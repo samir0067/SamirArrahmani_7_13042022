@@ -200,19 +200,19 @@ function createTagsByColor(selectedItems) {
 // TODO permets de filtrer la recette avec des étiquettes
 function filteringRecipeWithLabels(list, recettes) {
   searchResult = recettes.filter((recipe) => {
-    const filterAllElements = recipe.ingredients.filter((ingredient) => {
+    const filterItems = recipe.ingredients.filter((ingredient) => {
       if (ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
         return ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
       } else if (recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
         return recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
       }
     })
-    const filterElementDeux = recipe.ustensils.filter((ustensil) => {
-      if (ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+    const filterInputItems = recipe.ustensils.filter((utensil) => {
+      if (utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
       }
     })
-    return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
+    return !!((filterItems && filterItems.length > 0) || (filterInputItems && filterInputItems.length > 0))
   })
   mainRecipes.innerHTML = ""
   displayRemainingItemsList(searchResult)
@@ -259,17 +259,7 @@ function resetRecipeListWhenLabelDeleted(selectedLabels) {
         }
       }
     })
-    const filterElementDeux = recipe.ustensils.filter((ustensil) => {
-      if (ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return ustensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
-      }
-    })
-    return !!((filterAllElements && filterAllElements.length > 0) || (filterElementDeux && filterElementDeux.length > 0))
-  })
-  mainRecipes.innerHTML = ""
-  displayRemainingItemsList(searchResult)
-  displayRecipes(searchResult)
-  sortingItems(searchResult)
+  }
 }
 
 // TODO Recherche avancée pour liste déroulante
