@@ -276,7 +276,7 @@ function SearchItemsInput(input, array, listeItems) {
     })
     for (let item of listeItems) {
       if (resultSearchInput.includes(item.textContent)) {
-        item.style.display = "list-item"
+        item.style.display = "block"
       } else {
         item.style.display = "none"
       }
