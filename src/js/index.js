@@ -2,27 +2,24 @@ import {recipes} from "./recipes.js"
 import {dropdownButtons} from "./dropdownButtons.js"
 import {displayRecipes} from './displayRecipes.js'
 import {closeDropdownMenu, openDropdownMenu} from './openCloseDropdown.js'
-
-// Création de la recherche d'entrée
-const idInputIngredient = document.getElementById("inputIngredient")
-const idInputAppliance = document.getElementById("inputAppliance")
-const idInputUtensils = document.getElementById("inputUtensils")
-
-const dropdownListeIngredient = document.querySelector(".dropdown_subContainer_ingredients")
-const dropdownListeAppliance = document.querySelector(".dropdown_subContainer_appliances")
-const dropdownListUtensils = document.querySelector(".dropdown_subContainer_utensils")
+import {
+  dropdownAppliance,
+  dropdownIngredient,
+  dropdownListeAppliance,
+  dropdownListeIngredient,
+  dropdownListUtensils,
+  dropdownUtensils,
+  idInputAppliance,
+  idInputIngredient,
+  idInputUtensils,
+  inputContentAppliance,
+  inputContentIngredient,
+  inputContentUtensils
+} from './domElement.js'
 
 dropdownButtons(idInputIngredient, dropdownListeIngredient, recipes, "ingredient")
 dropdownButtons(idInputAppliance, dropdownListeAppliance, recipes, "appliance")
 dropdownButtons(idInputUtensils, dropdownListUtensils, recipes, "ustensils")
-
-const dropdownIngredient = document.querySelector(".dropdown_ingredient")
-const dropdownAppliance = document.querySelector(".dropdown_appliance")
-const dropdownUtensils = document.querySelector(".dropdown_utensils")
-
-const inputContentIngredient = document.querySelector(".input_content_ingredient")
-const inputContentAppliance = document.querySelector(".input_content_appliance")
-const inputContentUtensils = document.querySelector(".input_content_utensils")
 
 const mainRecipes = document.querySelector(".main")
 const listItems = document.querySelectorAll(".items")
@@ -50,7 +47,6 @@ let searchResult = []
 if (idSearchBar.value.length < 3) {
   sortingItems(recipes)
 }
-
 
 // écouter l'événement de l'entrée de la barre de recherche
 idSearchBar.addEventListener("input", () => {
