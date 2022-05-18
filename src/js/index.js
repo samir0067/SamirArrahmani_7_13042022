@@ -41,6 +41,10 @@ let itemsUtensils = document.querySelectorAll(".items_utensils")
 
 displayRecipes(recipes)
 
+if (idSearchBar.value.length < 3) {
+  sortingItems(recipes)
+}
+
 let filterResult = []
 let searchResult = []
 
@@ -141,16 +145,18 @@ function resettingInputWhenClickingListItem() {
     displayRemainingItemsList(filterResult)
     sortingItems(filterResult)
   }
-  // réinitialiser la liste des recettes à la suppression d'un tag
+
+  //  réinitialiser la liste des recettes à la suppression d'un tag
+  console.log('réinitialiser la liste des recettes à la suppression d\'un tag')
   const closing = document.querySelectorAll(".tag_close")
   for (let i = 0; i < closing.length; i++) {
     closing[i].addEventListener("click", (event) => {
-      for (let label of selectedItems) {
+      selectedItems.forEach((label) => {
         if (label.textContent === event.target.parentNode.children[0].textContent) {
           label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
           resettingInputWhenClickingListItem()
         }
-      }
+      })
     })
   }
 }
@@ -180,6 +186,7 @@ function filteringRecipeWithLabels(list, recettes) {
 
 // Afficher les éléments restants de la liste
 function displayRemainingItemsList(recipes) {
+  console.log(' Afficher les éléments restants de la liste')
   let listRecipes = []
 
   for (let recipe of recipes) {
@@ -207,7 +214,9 @@ function displayRemainingItemsList(recipes) {
 
 // Recherche avancée pour liste déroulante
 function SearchItemsInput(input, array, listeItems) {
+  console.log('Recherche avancée pour liste déroulante')
   input.addEventListener("input", (event) => {
+    console.log('Recherche avancée pour liste déroulante input.addEventListener')
     let resultSearchInput = array.filter((item) => {
       return item.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())
     })
@@ -223,6 +232,7 @@ function SearchItemsInput(input, array, listeItems) {
 
 // Tri la list des recettes
 function sortingItems(recipes) {
+  console.log('Tri la list des recettes')
   let listIngredients = []
   let listAppliances = []
   let listUtensils = []
