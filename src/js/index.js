@@ -1,6 +1,7 @@
 import {recipes} from "./recipes.js"
 import {dropdownButtons} from "./dropdownButtons.js"
 import {displayRecipes} from './displayRecipes.js'
+import {closeDropdownMenu, openDropdownMenu} from './openCloseDropdown.js'
 
 // Création de la recherche d'entrée
 const idInputIngredient = document.getElementById("inputIngredient")
@@ -34,24 +35,6 @@ let itemsAppliance = document.querySelectorAll(".items_appliance")
 let itemsUtensils = document.querySelectorAll(".items_utensils")
 
 displayRecipes(recipes)
-
-// ouverture et fermeture du menu déroulant
-function openDropdownMenu(inactive, active) {
-  inactive.addEventListener("click", () => {
-    inactive.style.display = "none"
-    active.style.display = "block"
-    active.firstChild.nextElementSibling.focus()
-  })
-}
-
-function closeDropdownMenu(inactive, active) {
-  document.addEventListener("click", (event) => {
-    if (event.target.parentNode !== active && event.target.parentNode !== inactive) {
-      inactive.style.display = "block"
-      active.style.display = "none"
-    }
-  })
-}
 
 openDropdownMenu(dropdownIngredient, inputContentIngredient)
 openDropdownMenu(dropdownAppliance, inputContentAppliance)
@@ -172,25 +155,25 @@ function resettingInputWhenClickingListItem() {
 }
 
 // permets de créer des étiquettes de couleur en fonction du type
-function createTagsByColor(selectedItems) {
-  document.getElementById("tags").innerHTML = selectedItems
-    .map((liste) => {
-      if (liste.classList[1] === "items_ingredient") {
+function createTagsByColor(selectedTag) {
+  document.getElementById("tags").innerHTML = selectedTag
+    .map((tag) => {
+      if (tag.classList[1] === "items_ingredient") {
         return `
         <div class="tag ingredients">
-          <li>${liste.textContent}</li>
+          <li>${tag.textContent}</li>
           <i class="far fa-times-circle tag_close"></i>
         </div>`
-      } else if (liste.classList[1] === "items_appliance") {
+      } else if (tag.classList[1] === "items_appliance") {
         return `
       <div class="tag appliance">
-          <li>${liste.textContent}</li>
+          <li>${tag.textContent}</li>
           <i class="far fa-times-circle tag_close"></i>
         </div>`
-      } else if (liste.classList[1] === "items_utensils") {
+      } else if (tag.classList[1] === "items_utensils") {
         return `
       <div class="tag utensils">
-          <li>${liste.textContent}</li>
+          <li>${tag.textContent}</li>
           <i class="far fa-times-circle tag_close"></i>
         </div>`
       }
