@@ -1,9 +1,14 @@
 // recherche avec l'ID de l'élément
+export const idSearchBar = document.getElementById("searchBar")
+export const idLabels = document.getElementById("tags")
+
 export const idInputIngredient = document.getElementById("inputIngredient")
 export const idInputAppliance = document.getElementById("inputAppliance")
 export const idInputUtensils = document.getElementById("inputUtensils")
 
 // recherche par element
+export const mainRecipes = document.querySelector(".main")
+
 export const dropdownListeIngredient = document.querySelector(".dropdown_subContainer_ingredients")
 export const dropdownListeAppliance = document.querySelector(".dropdown_subContainer_appliances")
 export const dropdownListUtensils = document.querySelector(".dropdown_subContainer_utensils")

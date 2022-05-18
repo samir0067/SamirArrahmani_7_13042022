@@ -12,26 +12,17 @@ import {
   idInputAppliance,
   idInputIngredient,
   idInputUtensils,
+  idLabels,
+  idSearchBar,
   inputContentAppliance,
   inputContentIngredient,
-  inputContentUtensils
+  inputContentUtensils,
+  mainRecipes
 } from './domElement.js'
 
 dropdownButtons(idInputIngredient, dropdownListeIngredient, recipes, "ingredient")
 dropdownButtons(idInputAppliance, dropdownListeAppliance, recipes, "appliance")
 dropdownButtons(idInputUtensils, dropdownListUtensils, recipes, "ustensils")
-
-const mainRecipes = document.querySelector(".main")
-const listItems = document.querySelectorAll(".items")
-
-const idSearchBar = document.getElementById("searchBar")
-const idLabels = document.getElementById("tags")
-
-let itemsIngredient = document.querySelectorAll(".items_ingredient")
-let itemsAppliance = document.querySelectorAll(".items_appliance")
-let itemsUtensils = document.querySelectorAll(".items_utensils")
-
-displayRecipes(recipes)
 
 openDropdownMenu(dropdownIngredient, inputContentIngredient)
 openDropdownMenu(dropdownAppliance, inputContentAppliance)
@@ -41,12 +32,18 @@ closeDropdownMenu(dropdownIngredient, inputContentIngredient)
 closeDropdownMenu(dropdownAppliance, inputContentAppliance)
 closeDropdownMenu(dropdownUtensils, inputContentUtensils)
 
+const listItems = document.querySelectorAll(".items")
+
+let itemsIngredient = document.querySelectorAll(".items_ingredient")
+let itemsAppliance = document.querySelectorAll(".items_appliance")
+let itemsUtensils = document.querySelectorAll(".items_utensils")
+
+displayRecipes(recipes)
+
+
 let filterResult = []
 let searchResult = []
 
-if (idSearchBar.value.length < 3) {
-  sortingItems(recipes)
-}
 
 // écouter l'événement de l'entrée de la barre de recherche
 idSearchBar.addEventListener("input", () => {
@@ -77,8 +74,7 @@ function filteringFromSearchBar(recipesList) {
       displayRemainingItemsList(filterResult)
       i++
     }
-
-    // condition pour afficher ou supprimer le message d'erreur
+    // afficher le message d'erreur si moins qu'une recette sinon supprimer le message d'erreur
     if (mainRecipes.children.length < 1) {
       document.querySelector(".error_message").style.display = "block"
     } else if (mainRecipes.children.length >= 1) {
@@ -101,7 +97,7 @@ function filteringFromSearchBar(recipesList) {
 
 for (let item of listItems) {
   item.addEventListener("click", function() {
-    this.dataset.selected = this.dataset.selected === "true" ? "false" : "true"
+    item.dataset.selected = item.dataset.selected === "true" ? "false" : "true"
     resettingInputWhenClickingListItem()
   })
 }
@@ -248,9 +244,7 @@ function resetRecipeListWhenLabelDeleted(selectedLabels) {
 function SearchItemsInput(input, array, listeItems) {
   input.addEventListener("input", (event) => {
     let resultSearchInput = array.filter((item) => {
-      return item
-        .toLocaleLowerCase()
-        .includes(event.target.value.toLocaleLowerCase())
+      return item.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())
     })
     for (let item of listeItems) {
       if (resultSearchInput.includes(item.textContent)) {
@@ -262,7 +256,7 @@ function SearchItemsInput(input, array, listeItems) {
   })
 }
 
-// Tri des articles
+// Tri la list des recettes
 function sortingItems(recipes) {
   let listIngredients = []
   let listAppliances = []
