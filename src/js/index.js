@@ -2,6 +2,7 @@ import {recipes} from "./recipes.js"
 import {dropdownButtons} from "./dropdownButtons.js"
 import {displayRecipes} from './displayRecipes.js'
 import {closeDropdownMenu, openDropdownMenu} from './openCloseDropdown.js'
+import {createTagsByColor} from './ctreateTagsByColor.js'
 import {
   dropdownAppliance,
   dropdownIngredient,
@@ -40,15 +41,15 @@ let itemsUtensils = document.querySelectorAll(".items_utensils")
 
 displayRecipes(recipes)
 
-
 let filterResult = []
 let searchResult = []
 
-
-// écouter l'événement de l'entrée de la barre de recherche
+// écouter l'événement de l'entrée de la barre de recherche en fonction des tags s’il y en a.
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
-    filteringFromSearchBar(searchResult)
+    for (let i = 0; i < idLabels.children.length; i++) {
+      filteringFromSearchBar(searchResult)
+    }
   } else {
     filteringFromSearchBar(recipes)
   }
@@ -109,9 +110,7 @@ function resettingInputWhenClickingListItem() {
   idInputAppliance.value = ""
   idInputUtensils.value = ""
   createTagsByColor(selectedItems)
-
-  // Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre
-  // principale
+  // Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
   for (let items of selectedItems) {
     if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
       filteringRecipeWithLabels(items, filterResult)
@@ -122,7 +121,6 @@ function resettingInputWhenClickingListItem() {
       filteringRecipeWithLabels(items, filterResult)
     }
   }
-
   // filtre en fonction du nombre de balises sélectionnées
   for (let items of selectedItems) {
     if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
@@ -143,34 +141,18 @@ function resettingInputWhenClickingListItem() {
     displayRemainingItemsList(filterResult)
     sortingItems(filterResult)
   }
-  resetRecipeListWhenLabelDeleted(selectedItems)
-}
-
-// permets de créer des étiquettes de couleur en fonction du type
-function createTagsByColor(selectedTag) {
-  document.getElementById("tags").innerHTML = selectedTag
-    .map((tag) => {
-      if (tag.classList[1] === "items_ingredient") {
-        return `
-        <div class="tag ingredients">
-          <li>${tag.textContent}</li>
-          <i class="far fa-times-circle tag_close"></i>
-        </div>`
-      } else if (tag.classList[1] === "items_appliance") {
-        return `
-      <div class="tag appliance">
-          <li>${tag.textContent}</li>
-          <i class="far fa-times-circle tag_close"></i>
-        </div>`
-      } else if (tag.classList[1] === "items_utensils") {
-        return `
-      <div class="tag utensils">
-          <li>${tag.textContent}</li>
-          <i class="far fa-times-circle tag_close"></i>
-        </div>`
+  // réinitialiser la liste des recettes à la suppression d'un tag
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
+      for (let label of selectedItems) {
+        if (label.textContent === event.target.parentNode.children[0].textContent) {
+          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
+          resettingInputWhenClickingListItem()
+        }
       }
     })
-    .join("")
+  }
 }
 
 // permets de filtrer la recette avec des étiquettes
@@ -220,23 +202,6 @@ function displayRemainingItemsList(recipes) {
     } else {
       item.style.display = "none"
     }
-  }
-}
-
-// réinitialiser la liste des recettes à la suppression d'un tag
-function resetRecipeListWhenLabelDeleted(selectedLabels) {
-  let i = 0
-  const closing = document.querySelectorAll(".tag_close")
-  while (i < closing.length) {
-    closing[i].addEventListener("click", (event) => {
-      for (let label of selectedLabels) {
-        if (label.textContent === event.target.parentNode.children[0].textContent) {
-          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
-          resettingInputWhenClickingListItem()
-        }
-      }
-    })
-    i++
   }
 }
 
