@@ -41,64 +41,8 @@ let itemsUtensils = document.querySelectorAll(".items_utensils")
 
 displayRecipes(recipes)
 
-if (idSearchBar.value.length < 3) {
-  sortingItems(recipes)
-}
-
 let filterResult = []
 let searchResult = []
-
-// écouter l'événement de l'entrée de la barre de recherche en fonction des tags s’il y en a.
-idSearchBar.addEventListener("input", () => {
-  if (idLabels.children[0]) {
-    for (let i = 0; i < idLabels.children.length; i++) {
-      filteringFromSearchBar(searchResult)
-    }
-  } else {
-    filteringFromSearchBar(recipes)
-  }
-})
-
-// Filtrer à partir de la barre de recherche
-function filteringFromSearchBar(recipesList) {
-  filterResult = []
-  let i = 0
-  if (idSearchBar.value.length >= 3) {
-    while (i < recipesList.length) {
-      if (
-        recipesList[i].name.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
-        recipesList[i].description.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
-        recipesList[i].ingredients.some((ingredient) => ingredient.ingredient.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()))
-      ) {
-        filterResult.push(recipesList[i])
-      }
-      filterResult = Array.from(new Set(filterResult))
-      mainRecipes.innerHTML = ""
-      displayRecipes(filterResult)
-      sortingItems(filterResult)
-      displayRemainingItemsList(filterResult)
-      i++
-    }
-    // afficher le message d'erreur si moins qu'une recette sinon supprimer le message d'erreur
-    if (mainRecipes.children.length < 1) {
-      document.querySelector(".error_message").style.display = "block"
-    } else if (mainRecipes.children.length >= 1) {
-      document.querySelector(".error_message").style.display = "none"
-    }
-  } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
-    mainRecipes.innerHTML = ""
-    sortingItems(searchResult)
-    displayRecipes(searchResult)
-    displayRemainingItemsList(searchResult)
-    document.querySelector(".error_message").style.display = "none"
-  } else if (idSearchBar.value.length < 3 && idLabels.childElementCount === 0) {
-    mainRecipes.innerHTML = ""
-    sortingItems(recipes)
-    displayRecipes(recipes)
-    displayRemainingItemsList(recipes)
-    document.querySelector(".error_message").style.display = "none"
-  }
-}
 
 for (let item of listItems) {
   item.addEventListener("click", function() {
@@ -212,6 +156,56 @@ function displayRemainingItemsList(recipes) {
   }
 }
 
+// écouter l'événement de l'entrée de la barre de recherche en fonction des tags s’il y en a.
+idSearchBar.addEventListener("input", () => {
+  if (idLabels.children[0]) {
+    filteringFromSearchBar(searchResult)
+  } else {
+    filteringFromSearchBar(recipes)
+  }
+})
+
+// Filtrer à partir de la barre de recherche
+function filteringFromSearchBar(recipesList) {
+  filterResult = []
+  let i = 0
+  if (idSearchBar.value.length >= 3) {
+    while (i < recipesList.length) {
+      if (
+        recipesList[i].name.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
+        recipesList[i].description.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
+        recipesList[i].ingredients.some((ingredient) => ingredient.ingredient.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()))
+      ) {
+        filterResult.push(recipesList[i])
+      }
+      filterResult = Array.from(new Set(filterResult))
+      mainRecipes.innerHTML = ""
+      displayRecipes(filterResult)
+      sortingItems(filterResult)
+      displayRemainingItemsList(filterResult)
+      i++
+    }
+    // afficher le message d'erreur si moins qu'une recette sinon supprimer le message d'erreur
+    if (mainRecipes.children.length < 1) {
+      document.querySelector(".error_message").style.display = "block"
+    } else if (mainRecipes.children.length >= 1) {
+      document.querySelector(".error_message").style.display = "none"
+    }
+  } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
+    mainRecipes.innerHTML = ""
+    sortingItems(searchResult)
+    displayRecipes(searchResult)
+    displayRemainingItemsList(searchResult)
+    document.querySelector(".error_message").style.display = "none"
+  } else if (idSearchBar.value.length < 3 && idLabels.childElementCount === 0) {
+    mainRecipes.innerHTML = ""
+    sortingItems(recipes)
+    displayRecipes(recipes)
+    displayRemainingItemsList(recipes)
+    document.querySelector(".error_message").style.display = "none"
+  }
+}
+
 // Recherche avancée pour liste déroulante
 function SearchItemsInput(input, array, listeItems) {
   console.log('Recherche avancée pour liste déroulante')
@@ -228,6 +222,10 @@ function SearchItemsInput(input, array, listeItems) {
       }
     }
   })
+}
+
+if (idSearchBar.value.length < 3) {
+  sortingItems(recipes)
 }
 
 // Tri la list des recettes
