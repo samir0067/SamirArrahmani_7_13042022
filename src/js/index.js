@@ -85,13 +85,13 @@ function resettingInputWhenClickingListItem() {
   }
   if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
     mainRecipes.innerHTML = ""
+    console.log('displayRecipes(filterResult) ==>', filterResult)
     displayRecipes(filterResult)
     displayRemainingItemsList(filterResult)
     sortingItems(filterResult)
   }
 
   //  réinitialiser la liste des recettes à la suppression d'un tag
-  console.log('réinitialiser la liste des recettes à la suppression d\'un tag')
   const closing = document.querySelectorAll(".tag_close")
   for (let i = 0; i < closing.length; i++) {
     closing[i].addEventListener("click", (event) => {
@@ -130,7 +130,6 @@ function filteringRecipeWithLabels(list, recettes) {
 
 // Afficher les éléments restants de la liste
 function displayRemainingItemsList(recipes) {
-  console.log(' Afficher les éléments restants de la liste')
   let listRecipes = []
 
   for (let recipe of recipes) {
@@ -208,9 +207,7 @@ function filteringFromSearchBar(recipesList) {
 
 // Recherche avancée pour liste déroulante
 function SearchItemsInput(input, array, listeItems) {
-  console.log('Recherche avancée pour liste déroulante')
   input.addEventListener("input", (event) => {
-    console.log('Recherche avancée pour liste déroulante input.addEventListener')
     let resultSearchInput = array.filter((item) => {
       return item.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())
     })
@@ -228,9 +225,8 @@ if (idSearchBar.value.length < 3) {
   sortingItems(recipes)
 }
 
-// Tri la list des recettes
+// Tri la list des recettes dans le dropdown
 function sortingItems(recipes) {
-  console.log('Tri la list des recettes')
   let listIngredients = []
   let listAppliances = []
   let listUtensils = []
