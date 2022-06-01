@@ -85,7 +85,7 @@ function filteringFromSearchBar(recipesList) {
     displayRemainingItemsList(recipes)
     sortingItems(recipes)
     document.querySelector(".error_message").style.display = "none"
-  } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
+  } else if (idSearchBar.value.length < 3 && idLabels.childElementCount > 1) {
     mainRecipes.innerHTML = ""
     displayRecipes(searchResult)
     displayRemainingItemsList(searchResult)
@@ -125,7 +125,13 @@ function resettingInputWhenClickingListItem() {
     }
   }
   closeLabel(selectedItems)
+  sortingItems(selectedItems)
 }
+//
+// if (idSearchBar.value.length < 3) {
+//   sortingItems(recipes)
+// }
+
 
 //  réinitialiser la liste des recettes à la suppression d'un tag
 function closeLabel(selectedItems) {
@@ -207,10 +213,6 @@ function SearchItemsInput(input, array, listeItems) {
       }
     }
   })
-}
-
-if (idSearchBar.value.length < 3) {
-  sortingItems(recipes)
 }
 
 // Tri la list des recettes dans le dropdown
