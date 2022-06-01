@@ -85,7 +85,7 @@ function filteringFromSearchBar(recipesList) {
     displayRemainingItemsList(recipes)
     sortingItems(recipes)
     document.querySelector(".error_message").style.display = "none"
-  } else if (idSearchBar.value.length < 3 && idLabels.childElementCount > 1) {
+  } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
     mainRecipes.innerHTML = ""
     displayRecipes(searchResult)
     displayRemainingItemsList(searchResult)
@@ -110,28 +110,23 @@ function resettingInputWhenClickingListItem() {
   createTagsByColor(selectedItems)
   // filtre en fonction du nombre de balises sélectionnées
   for (let items of selectedItems) {
-    if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, recipes)
-    } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, searchResult)
-    }
-  }
-  // Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
-  for (let items of selectedItems) {
-    if (selectedItems.length === 1 && idSearchBar.value.length >= 3) {
-      filteringRecipeWithLabels(items, filterResult)
-    } else if (selectedItems.length >= 2 && idSearchBar.value.length >= 3) {
-      filteringRecipeWithLabels(items, searchResult)
+    if (selectedItems.length === 1) {
+      if (idSearchBar.value.length < 3) {
+        filteringRecipeWithLabels(items, recipes)
+      } else if (idSearchBar.value.length >= 3) {
+        filteringRecipeWithLabels(items, filterResult)
+      }
+    } else if (selectedItems.length >= 2) {
+      if (idSearchBar.value.length < 3) {
+        filteringRecipeWithLabels(items, searchResult)
+      } else if (idSearchBar.value.length >= 3) {
+        filteringRecipeWithLabels(items, searchResult)
+      }
     }
   }
   closeLabel(selectedItems)
   sortingItems(selectedItems)
 }
-//
-// if (idSearchBar.value.length < 3) {
-//   sortingItems(recipes)
-// }
-
 
 //  réinitialiser la liste des recettes à la suppression d'un tag
 function closeLabel(selectedItems) {
