@@ -44,117 +44,6 @@ displayRecipes(recipes)
 let filterResult = []
 let searchResult = []
 
-for (let item of listItems) {
-  item.addEventListener("click", function() {
-    item.dataset.selected = item.dataset.selected === "true" ? "false" : "true"
-    resettingInputWhenClickingListItem()
-  })
-}
-
-//Réinitialisation de la saisie de texte lors d'un clic sur un élément de la liste
-function resettingInputWhenClickingListItem() {
-  const selectedItems = Array.from(document.querySelectorAll(".items[data-selected='true']"))
-  idInputIngredient.value = ""
-  idInputAppliance.value = ""
-  idInputUtensils.value = ""
-  createTagsByColor(selectedItems)
-  // Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
-  for (let items of selectedItems) {
-    if (selectedItems.length === 1 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, filterResult)
-    } else if (selectedItems.length >= 2 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, searchResult)
-    }
-    if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
-      filteringRecipeWithLabels(items, filterResult)
-    }
-  }
-  // filtre en fonction du nombre de balises sélectionnées
-  for (let items of selectedItems) {
-    if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, recipes)
-    } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
-      filteringRecipeWithLabels(items, searchResult)
-    }
-  }
-  if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
-    mainRecipes.innerHTML = ""
-    displayRecipes(recipes)
-    displayRemainingItemsList(recipes)
-    sortingItems(recipes)
-  }
-  if (selectedItems.length === 0 && idSearchBar.value.length > 2) {
-    mainRecipes.innerHTML = ""
-    console.log('displayRecipes(filterResult) ==>', filterResult)
-    displayRecipes(filterResult)
-    displayRemainingItemsList(filterResult)
-    sortingItems(filterResult)
-  }
-
-  //  réinitialiser la liste des recettes à la suppression d'un tag
-  const closing = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < closing.length; i++) {
-    closing[i].addEventListener("click", (event) => {
-      selectedItems.forEach((label) => {
-        if (label.textContent === event.target.parentNode.children[0].textContent) {
-          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
-          resettingInputWhenClickingListItem()
-        }
-      })
-    })
-  }
-}
-
-// permets de filtrer la recette avec des étiquettes
-function filteringRecipeWithLabels(list, recettes) {
-  searchResult = recettes.filter((recipe) => {
-    const filterItems = recipe.ingredients.filter((ingredient) => {
-      if (ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
-      } else if (recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
-      }
-    })
-    const filterInputItems = recipe.ustensils.filter((utensil) => {
-      if (utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
-      }
-    })
-    return !!((filterItems && filterItems.length > 0) || (filterInputItems && filterInputItems.length > 0))
-  })
-  mainRecipes.innerHTML = ""
-  displayRemainingItemsList(searchResult)
-  displayRecipes(searchResult)
-  sortingItems(searchResult)
-}
-
-// Afficher les éléments restants de la liste
-function displayRemainingItemsList(recipes) {
-  let listRecipes = []
-
-  for (let recipe of recipes) {
-    for (let ingredient of recipe.ingredients) {
-      listRecipes.push(ingredient.ingredient)
-    }
-    for (let utensil of recipe.ustensils) {
-      listRecipes.push(utensil)
-    }
-    listRecipes.push(recipe.appliance)
-    listRecipes = Array.from(new Set(listRecipes))
-  }
-  for (let item of listItems) {
-    if (listRecipes.includes(item.textContent)) {
-      if (item.dataset.selected === "true") {
-        item.style.display = "none"
-      } else if (item.dataset) {
-        item.style.display = "block"
-      }
-    } else {
-      item.style.display = "none"
-    }
-  }
-}
-
 // écouter l'événement de l'entrée de la barre de recherche en fonction des tags s’il y en a.
 idSearchBar.addEventListener("input", () => {
   if (idLabels.children[0]) {
@@ -180,8 +69,8 @@ function filteringFromSearchBar(recipesList) {
       filterResult = Array.from(new Set(filterResult))
       mainRecipes.innerHTML = ""
       displayRecipes(filterResult)
-      sortingItems(filterResult)
       displayRemainingItemsList(filterResult)
+      sortingItems(filterResult)
       i++
     }
     // afficher le message d'erreur si moins qu'une recette sinon supprimer le message d'erreur
@@ -190,18 +79,117 @@ function filteringFromSearchBar(recipesList) {
     } else if (mainRecipes.children.length >= 1) {
       document.querySelector(".error_message").style.display = "none"
     }
-  } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
-    mainRecipes.innerHTML = ""
-    sortingItems(searchResult)
-    displayRecipes(searchResult)
-    displayRemainingItemsList(searchResult)
-    document.querySelector(".error_message").style.display = "none"
   } else if (idSearchBar.value.length < 3 && idLabels.childElementCount === 0) {
     mainRecipes.innerHTML = ""
-    sortingItems(recipes)
     displayRecipes(recipes)
     displayRemainingItemsList(recipes)
+    sortingItems(recipes)
     document.querySelector(".error_message").style.display = "none"
+  } else if (idSearchBar.value.length < 3 && idLabels.children[0]) {
+    mainRecipes.innerHTML = ""
+    displayRecipes(searchResult)
+    displayRemainingItemsList(searchResult)
+    sortingItems(searchResult)
+    document.querySelector(".error_message").style.display = "none"
+  }
+}
+
+for (let item of listItems) {
+  item.addEventListener("click", function() {
+    item.dataset.selected = item.dataset.selected === "true" ? "false" : "true"
+    resettingInputWhenClickingListItem()
+  })
+}
+
+// Réinitialisation de la saisie de texte et affichage des recettes lors d'un clic sur un élément de la liste
+function resettingInputWhenClickingListItem() {
+  const selectedItems = Array.from(document.querySelectorAll(".items[data-selected='true']"))
+  idInputIngredient.value = ""
+  idInputAppliance.value = ""
+  idInputUtensils.value = ""
+  createTagsByColor(selectedItems)
+  // filtre en fonction du nombre de balises sélectionnées
+  for (let items of selectedItems) {
+    if (selectedItems.length === 1 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, recipes)
+    } else if (selectedItems.length >= 2 && idSearchBar.value.length < 3) {
+      filteringRecipeWithLabels(items, searchResult)
+    }
+  }
+  // Permet d'afficher les éléments de la liste disponibles selon la recherche par clic ou sur la barre principale
+  for (let items of selectedItems) {
+    if (selectedItems.length === 1 && idSearchBar.value.length >= 3) {
+      filteringRecipeWithLabels(items, filterResult)
+    } else if (selectedItems.length >= 2 && idSearchBar.value.length >= 3) {
+      filteringRecipeWithLabels(items, searchResult)
+    }
+  }
+  closeLabel(selectedItems)
+}
+
+//  réinitialiser la liste des recettes à la suppression d'un tag
+function closeLabel(selectedItems) {
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
+      selectedItems.forEach((label) => {
+        if (label.textContent === event.target.parentNode.children[0].textContent) {
+          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
+          resettingInputWhenClickingListItem()
+        }
+      })
+    })
+  }
+}
+
+// retourne un tableau filtrer avec la recette des étiquettes
+function filteringRecipeWithLabels(list, recettes) {
+  searchResult = recettes.filter((recipe) => {
+    const filterItems = recipe.ingredients.filter((ingredient) => {
+      if (ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      } else if (recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+    })
+    const filterInputItems = recipe.ustensils.filter((utensil) => {
+      if (utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
+        return utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      }
+    })
+    return !!((filterItems && filterItems.length > 0) || (filterInputItems && filterInputItems.length > 0))
+  })
+  mainRecipes.innerHTML = ""
+  displayRecipes(searchResult)
+  displayRemainingItemsList(searchResult)
+  sortingItems(searchResult)
+}
+
+// Afficher les éléments restants de la liste
+function displayRemainingItemsList(recipes) {
+  let listRecipes = []
+
+  for (let recipe of recipes) {
+    for (let ingredient of recipe.ingredients) {
+      listRecipes.push(ingredient.ingredient)
+    }
+    for (let utensil of recipe.ustensils) {
+      listRecipes.push(utensil)
+    }
+    listRecipes.push(recipe.appliance)
+    listRecipes = Array.from(new Set(listRecipes))
+  }
+
+  for (let item of listItems) {
+    if (listRecipes.includes(item.textContent)) {
+      if (item.dataset.selected === "true") {
+        item.style.display = "none"
+      } else if (item.dataset) {
+        item.style.display = "block"
+      }
+    } else {
+      item.style.display = "none"
+    }
   }
 }
 
