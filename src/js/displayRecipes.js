@@ -2,7 +2,7 @@ const main = document.querySelector(".main")
 
 // fonction qui me permet d'afficher tout le contenu de chaque recette sur une carte.
 export function displayRecipes(recipes) {
-  recipes.forEach((recipe) => {
+  for (let recipe of recipes) {
     const card = `
       <div class="card">
         <div class="card_img" ></div>
@@ -23,5 +23,5 @@ export function displayRecipes(recipes) {
       </div>
       `
     main.insertAdjacentHTML('beforeend', card)
-  })
+  }
 }
