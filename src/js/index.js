@@ -56,7 +56,6 @@ idSearchBar.addEventListener("input", () => {
 // Filtrer à partir de la barre de recherche
 function filteringFromSearchBar(recipesList) {
   filterResult = []
-  let i = 0
   if (idSearchBar.value.length >= 3) {
     recipesList.forEach((recipe) => {
       if (
@@ -71,7 +70,6 @@ function filteringFromSearchBar(recipesList) {
       displayRecipes(filterResult)
       displayRemainingItemsList(filterResult)
       sortingItems(filterResult)
-      i++
     })
     // afficher le message d'erreur si moins qu'une recette sinon supprimer le message d'erreur
     if (mainRecipes.children.length < 1) {
