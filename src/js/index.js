@@ -101,6 +101,21 @@ for (let item of listItems) {
   })
 }
 
+//  réinitialiser la liste des recettes à la suppression d'un tag
+function closeLabel(selectedItems) {
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
+      selectedItems.forEach((label) => {
+        if (label.textContent === event.target.parentNode.children[0].textContent) {
+          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
+          resettingInputWhenClickingListItem()
+        }
+      })
+    })
+  }
+}
+
 // Réinitialisation de la saisie de texte et affichage des recettes lors d'un clic sur un élément de la liste
 function resettingInputWhenClickingListItem() {
   const selectedItems = Array.from(document.querySelectorAll(".items[data-selected='true']"))
@@ -128,20 +143,7 @@ function resettingInputWhenClickingListItem() {
   sortingItems(selectedItems)
 }
 
-//  réinitialiser la liste des recettes à la suppression d'un tag
-function closeLabel(selectedItems) {
-  const closing = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < closing.length; i++) {
-    closing[i].addEventListener("click", (event) => {
-      selectedItems.forEach((label) => {
-        if (label.textContent === event.target.parentNode.children[0].textContent) {
-          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
-          resettingInputWhenClickingListItem()
-        }
-      })
-    })
-  }
-}
+
 
 // retourne un tableau filtrer avec la recette des étiquettes
 function filteringRecipeWithLabels(list, recettes) {
