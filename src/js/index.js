@@ -117,24 +117,22 @@ function resettingInputWhenClickingListItem() {
         filteringRecipeWithLabels(items, filterResult)
       }
     } else if (selectedItems.length >= 2) {
-      if (idSearchBar.value.length < 3) {
-        filteringRecipeWithLabels(items, searchResult)
-      } else if (idSearchBar.value.length >= 3) {
-        filteringRecipeWithLabels(items, searchResult)
-      }
+      filteringRecipeWithLabels(items, searchResult)
     }
   }
 
-  if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
-    mainRecipes.innerHTML = ""
-    displayRecipes(recipes)
-    displayRemainingItemsList(recipes)
-    sortingItems(recipes)
-  } else if (selectedItems.length === 0 && idSearchBar.value.length >= 3) {
-    mainRecipes.innerHTML = ""
-    displayRecipes(filterResult)
-    displayRemainingItemsList(filterResult)
-    sortingItems(filterResult)
+  if (selectedItems.length === 0) {
+    if (idSearchBar.value.length < 3) {
+      mainRecipes.innerHTML = ""
+      displayRecipes(recipes)
+      displayRemainingItemsList(recipes)
+      sortingItems(recipes)
+    } else if (idSearchBar.value.length >= 3) {
+      mainRecipes.innerHTML = ""
+      displayRecipes(filterResult)
+      displayRemainingItemsList(filterResult)
+      sortingItems(filterResult)
+    }
   }
 
   //  réinitialiser la liste des recettes à la suppression d'un tag
