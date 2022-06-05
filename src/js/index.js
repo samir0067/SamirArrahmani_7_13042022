@@ -101,21 +101,6 @@ for (let item of listItems) {
   })
 }
 
-//  réinitialiser la liste des recettes à la suppression d'un tag
-function closeLabel(selectedItems) {
-  const closing = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < closing.length; i++) {
-    closing[i].addEventListener("click", (event) => {
-      selectedItems.forEach((label) => {
-        if (label.textContent === event.target.parentNode.children[0].textContent) {
-          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
-          resettingInputWhenClickingListItem()
-        }
-      })
-    })
-  }
-}
-
 // Réinitialisation de la saisie de texte et affichage des recettes lors d'un clic sur un élément de la liste
 function resettingInputWhenClickingListItem() {
   const selectedItems = Array.from(document.querySelectorAll(".items[data-selected='true']"))
@@ -139,10 +124,32 @@ function resettingInputWhenClickingListItem() {
       }
     }
   }
-  closeLabel(selectedItems)
-  sortingItems(selectedItems)
-}
 
+  if (selectedItems.length === 0 && idSearchBar.value.length < 3) {
+    mainRecipes.innerHTML = ""
+    displayRecipes(recipes)
+    displayRemainingItemsList(recipes)
+    sortingItems(recipes)
+  } else if (selectedItems.length === 0 && idSearchBar.value.length >= 3) {
+    mainRecipes.innerHTML = ""
+    displayRecipes(filterResult)
+    displayRemainingItemsList(filterResult)
+    sortingItems(filterResult)
+  }
+
+  //  réinitialiser la liste des recettes à la suppression d'un tag
+  const closing = document.querySelectorAll(".tag_close")
+  for (let i = 0; i < closing.length; i++) {
+    closing[i].addEventListener("click", (event) => {
+      selectedItems.forEach((label) => {
+        if (label.textContent === event.target.parentNode.children[0].textContent) {
+          label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
+          resettingInputWhenClickingListItem()
+        }
+      })
+    })
+  }
+}
 
 
 // retourne un tableau filtrer avec la recette des étiquettes
