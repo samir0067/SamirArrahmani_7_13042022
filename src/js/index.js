@@ -60,9 +60,9 @@ function filteringFromSearchBar(recipesList) {
   if (idSearchBar.value.length >= 3) {
     while (i < recipesList.length) {
       if (
-        recipesList[i].name.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
-        recipesList[i].description.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()) ||
-        recipesList[i].ingredients.some((ingredient) => ingredient.ingredient.toLocaleLowerCase().includes(idSearchBar.value.toLocaleLowerCase()))
+        recipesList[i].name.toLowerCase().includes(idSearchBar.value.toLowerCase()) ||
+        recipesList[i].description.toLowerCase().includes(idSearchBar.value.toLowerCase()) ||
+        recipesList[i].ingredients.includes(idSearchBar.value.toLowerCase())
       ) {
         filterResult.push(recipesList[i])
       }
@@ -154,15 +154,15 @@ function resettingInputWhenClickingListItem() {
 function filteringRecipeWithLabels(list, recettes) {
   searchResult = recettes.filter((recipe) => {
     const filterItems = recipe.ingredients.filter((ingredient) => {
-      if (ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return ingredient.ingredient.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
-      } else if (recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return recipe.appliance.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      if (ingredient.ingredient.toLowerCase().includes(list.textContent.toLowerCase())) {
+        return ingredient.ingredient.toLowerCase().includes(list.textContent.toLowerCase())
+      } else if (recipe.appliance.toLowerCase().includes(list.textContent.toLowerCase())) {
+        return recipe.appliance.toLowerCase().includes(list.textContent.toLowerCase())
       }
     })
     const filterInputItems = recipe.ustensils.filter((utensil) => {
-      if (utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())) {
-        return utensil.toLocaleLowerCase().includes(list.textContent.toLocaleLowerCase())
+      if (utensil.toLowerCase().includes(list.textContent.toLowerCase())) {
+        return utensil.toLowerCase().includes(list.textContent.toLowerCase())
       }
     })
     return !!((filterItems && filterItems.length > 0) || (filterInputItems && filterInputItems.length > 0))
@@ -204,7 +204,7 @@ function displayRemainingItemsList(recipes) {
 function SearchItemsInput(input, array, listeItems) {
   input.addEventListener("input", (event) => {
     let resultSearchInput = array.filter((item) => {
-      return item.toLocaleLowerCase().includes(event.target.value.toLocaleLowerCase())
+      return item.toLowerCase().includes(event.target.value.toLowerCase())
     })
     for (let item of listeItems) {
       if (resultSearchInput.includes(item.textContent)) {
