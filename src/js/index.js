@@ -182,7 +182,6 @@ function displayRemainingItemsList(recipes) {
     listRecipes.push(recipe.appliance)
     listRecipes = Array.from(new Set(listRecipes))
   }
-
   for (let item of listItems) {
     if (listRecipes.includes(item.textContent)) {
       if (item.dataset.selected === "true") {
