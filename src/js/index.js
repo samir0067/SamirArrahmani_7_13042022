@@ -58,13 +58,13 @@ function filteringFromSearchBar(recipesList) {
   filterResult = []
   let i = 0
   if (idSearchBar.value.length >= 3) {
-    while (i < recipesList.length) {
+    recipesList.forEach((recipe) => {
       if (
-        recipesList[i].name.toLowerCase().includes(idSearchBar.value.toLowerCase()) ||
-        recipesList[i].description.toLowerCase().includes(idSearchBar.value.toLowerCase()) ||
-        recipesList[i].ingredients.includes(idSearchBar.value.toLowerCase())
+        recipe.name.toLowerCase().includes(idSearchBar.value.toLowerCase()) ||
+        recipe.description.toLowerCase().includes(idSearchBar.value.toLowerCase()) ||
+        recipe.ingredients.includes(idSearchBar.value.toLowerCase())
       ) {
-        filterResult.push(recipesList[i])
+        filterResult.push(recipe)
       }
       filterResult = Array.from(new Set(filterResult))
       mainRecipes.innerHTML = ""
@@ -72,7 +72,7 @@ function filteringFromSearchBar(recipesList) {
       displayRemainingItemsList(filterResult)
       sortingItems(filterResult)
       i++
-    }
+    })
     // afficher le message d'erreur si moins qu'une recette sinon supprimer le message d'erreur
     if (mainRecipes.children.length < 1) {
       document.querySelector(".error_message").style.display = "block"
