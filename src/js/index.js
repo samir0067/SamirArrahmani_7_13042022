@@ -137,8 +137,8 @@ function resettingInputWhenClickingListItem() {
 
   //  réinitialiser la liste des recettes à la suppression d'un tag
   const closing = document.querySelectorAll(".tag_close")
-  for (let i = 0; i < closing.length; i++) {
-    closing[i].addEventListener("click", (event) => {
+  for (let close of closing) {
+    close.addEventListener("click", (event) => {
       selectedItems.forEach((label) => {
         if (label.textContent === event.target.parentNode.children[0].textContent) {
           label.dataset.selected = label.dataset.selected === "true" ? "false" : "true"
