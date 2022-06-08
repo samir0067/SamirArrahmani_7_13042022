@@ -174,17 +174,17 @@ function filteringRecipeWithLabels(list, recettes) {
 }
 
 // Afficher les éléments restants de la liste
-function displayRemainingItemsList(recipes) {
+function displayRemainingItemsList(items) {
   let listRecipes = []
 
-  for (let recipe of recipes) {
-    for (let ingredient of recipe.ingredients) {
+  for (let item of items) {
+    for (let ingredient of item.ingredients) {
       listRecipes.push(ingredient.ingredient)
     }
-    for (let utensil of recipe.ustensils) {
+    for (let utensil of item.ustensils) {
       listRecipes.push(utensil)
     }
-    listRecipes.push(recipe.appliance)
+    listRecipes.push(item.appliance)
     listRecipes = Array.from(new Set(listRecipes))
   }
   for (let item of listItems) {
@@ -217,12 +217,12 @@ function SearchItemsInput(input, array, listeItems) {
 }
 
 // Tri la list des recettes dans le dropdown
-function sortingItems(recipes) {
+function sortingItems(sortRecipes) {
   let listIngredients = []
   let listAppliances = []
   let listUtensils = []
 
-  for (let recipe of recipes) {
+  for (let recipe of sortRecipes) {
     for (let ingredient of recipe.ingredients) {
       listIngredients.push(ingredient.ingredient)
     }
